@@ -125,11 +125,18 @@
                                 <img src="~/assets/img/client_img.png" alt="#">
                                 <div class="profile_info_iner">
                                     <p>Welcome Admin!</p>
-                                    <h5>Travor James</h5>
+                                        @using System.Security.Claims;
+                                        @{
+                                            string userName = User.FindFirst(ClaimTypes.Name)?.Value;
+                                        }
+                                        @if (userName != null)
+                                        {
+                                            <h5 class="nav-link" asp-controller="Home">
+                                                @userName
+                                            </h5>
+                                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                                        }
                                     <div class="profile_info_details">
-                                        <a href="#">My Profile <i class="ti-user"></i></a>
-                                        <a href="#">Settings <i class="ti-settings"></i></a>
-                                        <a href="#">Log Out <i class="ti-shift-left"></i></a>
                                     </div>
                                 </div>
                             </div>
