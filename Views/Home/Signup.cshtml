@@ -1,0 +1,50 @@
+﻿@model Karnel_Travels.Models.User;
+
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Sign Up <i class="fa fa-chevron-right"></i></span></p>
+                <h1 class="mb-0 bread">Sign Up</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section contact-section ftco-no-pt">
+    <div class="container text-center" >
+        <div class="row block-9">
+            <div class="col-md-12 order-md-last d-flex">
+                <form class="bg-light p-5 contact-form" asp-controller="Home" asp-action="SignUp">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <input type="text" class="form-control" asp-for="UserName" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" asp-for="UserEmail" placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" asp-for="UserPassword" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Sign Up" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-intro ftco-section ftco-no-pt">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <div class="img" style="background-image: url(../images/bg_2.jpg);">
+                    <div class="overlay"></div>
+                    <h2>We Are Pacific A Travel Agency</h2>
+                    <p>We can manage your dream building A small river named Duden flows by their place</p>
+                    <p class="mb-0"><a href="#" class="btn btn-primary px-4 py-3">Ask For A Quote</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

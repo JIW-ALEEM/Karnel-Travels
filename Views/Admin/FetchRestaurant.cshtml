@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Karnel_Travels.Models.Restaurant>
+@{
+    Layout = "_AdminLayout";
+}
+
+@functions {
+    public string TruncateDescription(string description, int length)
+    {
+        if (description.Length <= length)
+            return description;
+
+        var words = description.Split(' ');
+        if (words.Length <= length)
+            return string.Join(" ", words);
+
+        return string.Join(" ", words.Take(length)) + " ...";
+    }
+}
+
+<div class="main_content_iner">
+    <div class="container-fluid plr_30 body_white_bg pt_30">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="QA_section">
+                    <div class="white_box_tittle list_header">
+                        <h4>Restuarant Table</h4>
+                        <div class="box_right d-flex lms_block">
+                            <div class="serach_field_2">
+                                <div class="search_inner">
+                                    <form Active="#">
+                                        <div class="search_field">
+                                            <input type="text" placeholder="Search content here...">
+                                        </div>
+                                        <button type="submit"> <i class="ti-search"></i> </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="add_button ms-2">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#addcategory" class="btn_1">Add New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="QA_table">
+                        <table class="table lms_table_active">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Menu</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><img src="~/@item.RestaurantImage" class="d-flex m-auto" width="50" height="50" alt="..."></td>
+                                        <td>@item.RestaurantName</td>
+                                        <td>@item.RestaurantMenu</td>
+                                        <td>
+                                            @if (item.RestaurantDescription.Length > 10)
+                                            {
+                                                <span id="description_@item.RestaurantId">@TruncateDescription(item.RestaurantDescription, 10)</span>
+                                                <span id="full_description_@item.RestaurantId" style="display:none">@item.RestaurantDescription</span>
+                                                <button class="btn btn-link read-more-btn" style="text-decoration:none" data-description-id="@item.RestaurantId">Read More</button>
+                                                <button class="btn btn-link read-less-btn" style="display:none;text-decoration:none" data-description-id="@item.RestaurantId">Read Less</button>
+                                            }
+                                            else
+                                            {
+                                                @item.RestaurantDescription
+                                            }
+                                        </td>
+                                        <td>@item.RestaurantLocation</td>
+                                        <td><a class="status_btn" asp-action="UpdateRestaurant" asp-controller="Admin" asp-route-id="@item.RestaurantId">Update</a></td>
+                                        <td><a class="status_btnn" asp-action="DeleteRestaurant" asp-controller="Admin" asp-route-id="@item.RestaurantId">Delete</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+@{
+    string alertmessage = TempData["Message"] as string;
+}
+@{
+    string Delmessage = TempData["DelMessage"] as string;
+}
+@{
+    string UpdateMessage = TempData["UpdateMessage"] as string;
+}
+@if (!string.IsNullOrEmpty(alertmessage))
+{
+    <script>
+        alert("@alertmessage");
+    </script>
+}
+@if (!string.IsNullOrEmpty(Delmessage))
+{
+    <script>
+        alert("@Delmessage");
+    </script>
+}
+@if (!string.IsNullOrEmpty(UpdateMessage))
+{
+    <script>
+        alert("@UpdateMessage");
+    </script>
+}

@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Karnel_Travels.Models.Travel>
+@{
+    Layout = "_AdminLayout";
+}
+
+@functions {
+    public string TruncateDescription(string description, int length)
+    {
+        if (description.Length <= length)
+            return description;
+
+        var words = description.Split(' ');
+        if (words.Length <= length)
+            return string.Join(" ", words);
+
+        return string.Join(" ", words.Take(length)) + " ...";
+    }
+}
+
+<div class="main_content_iner">
+    <div class="container-fluid plr_30 body_white_bg pt_30">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="QA_section">
+                    <div class="white_box_tittle list_header">
+                        <h4>Travel Table</h4>
+                        <div class="box_right d-flex lms_block">
+                            <div class="serach_field_2">
+                                <div class="search_inner">
+                                    <form Active="#">
+                                        <div class="search_field">
+                                            <input type="text" placeholder="Search content here...">
+                                        </div>
+                                        <button type="submit"> <i class="ti-search"></i> </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="add_button ms-2">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#addcategory" class="btn_1">Add New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="QA_table">
+                        <table class="table lms_table_active">
+                            <thead>
+                                <tr>       
+                                    <th scope="col">Mode</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.TravelMode</td>
+                                        <td>
+                                            @if (item.TravelDescription.Length > 10)
+                                            {
+                                                <span id="description_@item.TravelId">@TruncateDescription(item.TravelDescription, 10)</span>
+                                                <span id="full_description_@item.TravelId" style="display:none">@item.TravelDescription</span>
+                                                <button class="btn btn-link read-more-btn" style="text-decoration:none" data-description-id="@item.TravelId">Read More</button>
+                                                <button class="btn btn-link read-less-btn" style="display:none;text-decoration:none" data-description-id="@item.TravelId">Read Less</button>
+                                            }
+                                            else
+                                            {
+                                                @item.TravelDescription
+                                            }
+                                        </td>
+                                        <td><a class="status_btn" asp-action="UpdateTravel" asp-controller="Admin" asp-route-id="@item.TravelId">Update</a></td>
+                                        <td><a class="status_btnn" asp-action="DeleteTravel" asp-controller="Admin" asp-route-id="@item.TravelId">Delete</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+@{
+    string alertmessage = TempData["Message"] as string;
+}
+@{
+    string Delmessage = TempData["DelMessage"] as string;
+}
+@{
+    string UpdateMessage = TempData["UpdateMessage"] as string;
+}
+@if (!string.IsNullOrEmpty(alertmessage))
+{
+    <script>
+        alert("@alertmessage");
+    </script>
+}
+@if (!string.IsNullOrEmpty(Delmessage))
+{
+    <script>
+        alert("@Delmessage");
+    </script>
+}
+@if (!string.IsNullOrEmpty(UpdateMessage))
+{
+    <script>
+        alert("@UpdateMessage");
+    </script>
+}

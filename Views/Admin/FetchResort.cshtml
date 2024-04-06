@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Karnel_Travels.Models.Resort>
+@{
+    Layout = "_AdminLayout";
+}
+
+@functions {
+    public string TruncateDescription(string description, int length)
+    {
+        if (description.Length <= length)
+            return description;
+
+        var words = description.Split(' ');
+        if (words.Length <= length)
+            return string.Join(" ", words);
+
+        return string.Join(" ", words.Take(length)) + " ...";
+    }
+}
+
+<div class="main_content_iner">
+    <div class="container-fluid plr_30 body_white_bg pt_30">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="QA_section">
+                    <div class="white_box_tittle list_header">
+                        <h4>Resort Table</h4>
+                        <div class="box_right d-flex lms_block">
+                            <div class="serach_field_2">
+                                <div class="search_inner">
+                                    <form Active="#">
+                                        <div class="search_field">
+                                            <input type="text" placeholder="Search content here...">
+                                        </div>
+                                        <button type="submit"> <i class="ti-search"></i> </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="add_button ms-2">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#addcategory" class="btn_1">Add New</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="QA_table">
+                        <table class="table lms_table_active">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><img src="~/@item.ResortImage" class="d-flex m-auto" width="50" height="50" alt="..."></td>
+                                        <td>@item.ResortName</td>
+                                        <td>
+                                            @if (item.ResortDescription.Length > 10)
+                                            {
+                                                <span id="description_@item.ResortId">@TruncateDescription(item.ResortDescription, 10)</span>
+                                                <span id="full_description_@item.ResortId" style="display:none">@item.ResortDescription</span>
+                                                <button class="btn btn-link read-more-btn" style="text-decoration:none" data-description-id="@item.ResortId">Read More</button>
+                                                <button class="btn btn-link read-less-btn" style="display:none;text-decoration:none" data-description-id="@item.ResortId">Read Less</button>
+                                            }
+                                            else
+                                            {
+                                                @item.ResortDescription
+                                            }
+                                        </td>
+                                        <td>@item.ResortLocation</td>
+                                        <td><a class="status_btn" asp-action="UpdateResort" asp-controller="Admin" asp-route-id="@item.ResortId">Update</a></td>
+                                        <td><a class="status_btnn" asp-action="DeleteResort" asp-controller="Admin" asp-route-id="@item.ResortId">Delete</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+@{
+    string alertmessage = TempData["Message"] as string;
+}
+@{
+    string Delmessage = TempData["DelMessage"] as string;
+}
+@{
+    string UpdateMessage = TempData["UpdateMessage"] as string;
+}
+@if (!string.IsNullOrEmpty(alertmessage))
+{
+    <script>
+        alert("@alertmessage");
+    </script>
+}
+@if (!string.IsNullOrEmpty(Delmessage))
+{
+    <script>
+        alert("@Delmessage");
+    </script>
+}
+@if (!string.IsNullOrEmpty(UpdateMessage))
+{
+    <script>
+        alert("@UpdateMessage");
+    </script>
+}

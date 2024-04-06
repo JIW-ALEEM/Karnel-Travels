@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html lang="zxx">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Finance</title>
+    <link rel="icon" href="~/assets/img/logo.png" type="image/png">
+
+    <link rel="stylesheet" href="~/assets/css/bootstrap1.min.css" />
+
+    <link rel="stylesheet" href="~/assets/vendors/themefy_icon/themify-icons.css" />
+
+    <link rel="stylesheet" href="~/assets/vendors/swiper_slider/css/swiper.min.css" />
+
+    <link rel="stylesheet" href="~/assets/vendors/select2/css/select2.min.css" />
+
+    <link rel="stylesheet" href="~/assets/vendors/niceselect/css/nice-select.css" />
+
+    <link rel="stylesheet" href="~/assets/vendors/owl_carousel/css/owl.carousel.css" />
+
+    <link rel="stylesheet" href="~/assets/vendors/gijgo/gijgo.min.css" />
+
+    <link rel="stylesheet" href="~/assets/vendors/font_awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/tagsinput/tagsinput.css" />
+
+    <link rel="stylesheet" href="~/assets/vendors/datatable/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/datatable/css/responsive.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/datatable/css/buttons.dataTables.min.css" />
+
+    <link rel="stylesheet" href="~/assets/vendors/text_editor/summernote-bs4.css" />
+
+    <link rel="stylesheet" href="~/assets/vendors/morris/morris.css">
+
+    <link rel="stylesheet" href="~/assets/vendors/material_icon/material-icons.css" />
+
+    <link rel="stylesheet" href="~/assets/css/metisMenu.css">
+
+    <link rel="stylesheet" href="~/assets/css/style1.css" />
+    <link rel="stylesheet" href="~/assets/css/colors/default.css" id="colorSkinCSS">
+</head>
+<body class="crm_body_bg">
+
+
+
+    <nav class="sidebar">
+        <div class="logo d-flex justify-content-between">
+            <a href="index.html"><img src="~/assets/img/logo.PNG" ></a>
+            <div class="sidebar_close_icon d-lg-none">
+                <i class="ti-close"></i>
+            </div>
+        </div>
+        <ul id="sidebar_menu">
+            <li class="mm-active">
+                <a  href="#" aria-expanded="false">
+
+                   
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a  href="#" aria-expanded="false">
+                   
+                    <span>Add_Pages</span>
+                </a>
+                <ul>
+                    <li><a asp-controller="Admin" asp-action="Travel">Add Travel</a></li>
+                    <li><a asp-controller="Admin" asp-action="TouristSpot">Add Tourist Spot</a></li>
+                    <li><a asp-controller="Admin" asp-action="Hotel">Add Hotel</a></li>
+                    <li><a asp-controller="Admin" asp-action="Restaurant">Add Restaurant</a></li>
+                    <li><a asp-controller="Admin" asp-action="Resort">Add Resort</a></li>
+                    <li><a asp-controller="Admin" asp-action="Package">Add Package</a></li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="#" aria-expanded="false">
+                   
+                    <span>Fetch</span>
+                </a>
+                <ul>
+
+                    <li><a asp-controller="Admin" asp-action="FetchTouristSpot">Tourist Spot</a></li>
+                    <li><a asp-controller="Admin" asp-action="FetchTravel">Travel</a></li>
+                    <li><a asp-controller="Admin" asp-action="FetchHotel">Hotel</a></li>
+                    <li><a asp-controller="Admin" asp-action="FetchRestaurant">Restaurant</a></li>
+                    <li><a asp-controller="Admin" asp-action="FetchResort">Resort</a></li>
+                    <li><a asp-controller="Admin" asp-action="FetchPackage">Package</a></li>
+       
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="main_content dashboard_part">
+
+        <div class="container-fluid g-0">
+            <div class="row">
+                <div class="col-lg-12 p-0">
+                    <div class="header_iner d-flex justify-content-between align-items-center">
+                        <div class="sidebar_icon d-lg-none">
+                            <i class="ti-menu"></i>
+                        </div>
+                        <div class="serach_field-area">
+                            <div class="search_inner">
+                                <form action="#">
+                                    <div class="search_field">
+                                        <input type="text" placeholder="Search here...">
+                                    </div>
+                                    <button type="submit"> <img src="~/assets/img/icon/icon_search.svg"> </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="header_right d-flex justify-content-between align-items-center">
+                            <div class="header_notification_warp d-flex align-items-center">
+                                <li>
+                                    <a href="#"> <img src="~/assets/img/icon/bell.svg"> </a>
+                                </li>
+                                <li>
+                                    <a href="#"> <img src="~/assets/img/icon/msg.svg"> </a>
+                                </li>
+                            </div>
+                            <div class="profile_info">
+                                <img src="~/assets/img/client_img.png" alt="#">
+                                <div class="profile_info_iner">
+                                    <p>Welcome Admin!</p>
+                                    <h5>Travor James</h5>
+                                    <div class="profile_info_details">
+                                        <a href="#">My Profile <i class="ti-user"></i></a>
+                                        <a href="#">Settings <i class="ti-settings"></i></a>
+                                        <a href="#">Log Out <i class="ti-shift-left"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <footer class="bg-body-tertiary text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3 bg-dark text-light">
+            © 2020 Copyright: MDBootstrap.com
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+        <script>
+            // JavaScript to toggle visibility of full and truncated descriptions
+            document.addEventListener('DOMContentLoaded', function () {
+                var readMoreButtons = document.querySelectorAll('.read-more-btn');
+                var readLessButtons = document.querySelectorAll('.read-less-btn');
+
+                readMoreButtons.forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        var descriptionId = this.getAttribute('data-description-id');
+                        var descriptionSpan = document.getElementById('description_' + descriptionId);
+                        var fullDescriptionSpan = document.getElementById('full_description_' + descriptionId);
+                        var readLessButton = document.querySelector('.read-less-btn[data-description-id="' + descriptionId + '"]');
+
+                        descriptionSpan.style.display = 'none';
+                        fullDescriptionSpan.style.display = 'inline';
+                        this.style.display = 'none';
+                        readLessButton.style.display = 'inline';
+                    });
+                });
+
+                readLessButtons.forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        var descriptionId = this.getAttribute('data-description-id');
+                        var descriptionSpan = document.getElementById('description_' + descriptionId);
+                        var fullDescriptionSpan = document.getElementById('full_description_' + descriptionId);
+                        var readMoreButton = document.querySelector('.read-more-btn[data-description-id="' + descriptionId + '"]');
+
+                        descriptionSpan.style.display = 'inline';
+                        fullDescriptionSpan.style.display = 'none';
+                        this.style.display = 'none';
+                        readMoreButton.style.display = 'inline';
+                    });
+                });
+            });
+        </script>
+
+
+
+    <script src="~/assets/js/jquery1-3.4.1.min.js"></script>
+
+    <script src="~/assets/js/popper1.min.js"></script>
+
+    <script src="~/assets/js/bootstrap1.min.js"></script>
+
+    <script src="~/assets/js/metisMenu.js"></script>
+
+    <script src="~/assets/vendors/count_up/jquery.waypoints.min.js"></script>
+
+    <script src="~/assets/vendors/chartlist/Chart.min.js"></script>
+
+    <script src="~/assets/vendors/count_up/jquery.counterup.min.js"></script>
+
+    <script src="~/assets/vendors/swiper_slider/js/swiper.min.js"></script>
+
+    <script src="~/assets/vendors/niceselect/js/jquery.nice-select.min.js"></script>
+
+    <script src="~/assets/vendors/owl_carousel/js/owl.carousel.min.js"></script>
+
+    <script src="~/assets/vendors/gijgo/gijgo.min.js"></script>
+
+    <script src="~/assets/vendors/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/vendors/datatable/js/dataTables.responsive.min.js"></script>
+    <script src="~/assets/vendors/datatable/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/vendors/datatable/js/buttons.flash.min.js"></script>
+    <script src="~/assets/vendors/datatable/js/jszip.min.js"></script>
+    <script src="~/assets/vendors/datatable/js/pdfmake.min.js"></script>
+    <script src="~/assets/vendors/datatable/js/vfs_fonts.js"></script>
+    <script src="~/assets/vendors/datatable/js/buttons.html5.min.js"></script>
+    <script src="~/assets/vendors/datatable/js/buttons.print.min.js"></script>
+    <script src="~/assets/js/chart.min.js"></script>
+
+    <script src="~/assets/vendors/progressbar/jquery.barfiller.js"></script>
+
+    <script src="~/assets/vendors/tagsinput/tagsinput.js"></script>
+
+    <script src="~/assets/vendors/text_editor/summernote-bs4.js"></script>
+    <script src="~/assets/vendors/apex_chart/apexcharts.js"></script>
+
+    <script src="~/assets/js/custom.js"></script>
+
+    <script src="~/assets/js/active_chart.js"></script>
+    <script src="~/assets/vendors/apex_chart/radial_active.js"></script>
+    <script src="~/assets/vendors/apex_chart/stackbar.js"></script>
+    <script src="~/assets/vendors/apex_chart/area_chart.js"></script>
+
+    <script src="~/assets/vendors/apex_chart/bar_active_1.js"></script>
+    <script src="~/assets/vendors/chartjs/chartjs_active.js"></script>
+
+</body>
+</html>

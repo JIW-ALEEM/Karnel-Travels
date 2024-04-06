@@ -1,0 +1,49 @@
+﻿@model Karnel_Travels.Models.Resort;
+@{
+    Layout = "_AdminLayout";
+}
+
+
+<div class="main_content_iner ">
+    <div class="container-fluid plr_30 body_white_bg pt_30">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_box mb_30">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+
+                            <div class="modal-content cs_modal">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Tourist Spot</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form enctype="multipart/form-data" asp-controller="Admin" asp-action="UpdateResort2">
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-group mb-3">
+                                            <input type="hidden" asp-for="ResortId" class="form-control" />
+                                        </div>
+                                        <div>
+                                            <input type="text" class="form-control" asp-for="ResortName" placeholder="Enter Resort Name">
+                                        </div>
+                                        <div>
+                                            <input class="form-control pt-0" type="file" name="file">
+                                            <img src="~/@Model.ResortImage" width="60" height="60">
+                                        </div>
+                                        <div>
+                                            <input type="text" class="form-control" asp-for="ResortDescription" placeholder="Enter Resort Description">
+                                        </div>
+                                        <div>
+                                            <input type="text" class="form-control" asp-for="ResortLocation" placeholder="Enter Resort Location">
+                                        </div>
+                                        <button type="submit" class="btn_1 full_width text-center">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
