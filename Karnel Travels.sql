@@ -17,7 +17,7 @@ UserPassword VARCHAR(255) NOT NULL,
 UserRoleId INT
 FOREIGN KEY (UserRoleId) REFERENCES ROLE (RoleId)
 );
-
+INSERT INTO Users (UserName, UserEmail, UserPassword, UserRoleId) VALUES ('Admin','admin@gmail.com','admin123',1);
 
 CREATE TABLE TouristSpot(
 SpotId INT PRIMARY KEY IDENTITY(1,1),

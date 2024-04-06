@@ -39,7 +39,7 @@ namespace Karnel_Travels.Controllers
             return View();
         }
 
-       
+
 
         // Login Action Method
         public IActionResult Login(User User)
@@ -91,10 +91,9 @@ namespace Karnel_Travels.Controllers
             return View();
         }
 
-        // Logout Action Method
         public IActionResult Logout()
         {
-            var Login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(nameof(Login));
         }
 

@@ -6,6 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<KarnelTravelContext>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+               op =>
+               {
+                   op.LoginPath = "/Home/Login";
+                   op.AccessDeniedPath = "/Home/Login";
+                   op.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+               }
+               );
+
 
 var app = builder.Build();
 
@@ -23,10 +32,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseAuthentication();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Admin}/{action=AdminIndex}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 
