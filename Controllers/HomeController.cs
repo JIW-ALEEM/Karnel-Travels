@@ -111,16 +111,9 @@ namespace Karnel_Travels.Controllers
         {
             return View();
         }
-        public ActionResult Hotel(string searchString)
+        public IActionResult Hotel()
         {
-            var hotels = from h in db.Hotels select h;
-
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                hotels = hotels.Where(h => h.HotelName.Contains(searchString));
-            }
-
-            return View(hotels.ToList());
+            return View(db.Hotels.ToList());
         }
         public IActionResult Resorts()
         {
@@ -138,7 +131,6 @@ namespace Karnel_Travels.Controllers
         {
             return View();
         } 
-+
 
 
 
