@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Plugins;
 using System.Diagnostics;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Karnel_Travels.Controllers
 {
@@ -110,10 +111,37 @@ namespace Karnel_Travels.Controllers
         {
             return View();
         }
-        public IActionResult Hotel()
+        public ActionResult Hotel(string searchString)
+        {
+            var hotels = from h in db.Hotels select h;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                hotels = hotels.Where(h => h.HotelName.Contains(searchString));
+            }
+
+            return View(hotels.ToList());
+        }
+        public IActionResult Resorts()
         {
             return View();
         }
+        public IActionResult Restarurant()
+        {
+            return View();
+        }
+        public IActionResult Travel()
+        {
+            return View();
+        }
+        public IActionResult Tourist()
+        {
+            return View();
+        } 
++
+
+
+
         public IActionResult Blog()
         {
             return View();
