@@ -16,14 +16,16 @@
                                         <h5 class="modal-title">Add Travel Mode</h5>
                                     </div>
                                     <div class="modal-body">
-                                    <form asp-controller="Admin" asp-action="AddTravel">
+                                    <form method="post">
                                         @Html.AntiForgeryToken()
                                             <div>
                                             <input type="text" class="form-control" asp-for="TravelMode" placeholder="Enter Travel Mode">
-                                            </div>
+                                            <span asp-validation-for="TravelMode" class="text-danger"></span>
+                                        </div>
                                             <div>
                                             <input class="form-control" type="text" asp-for="TravelDescription" placeholder="Enter Travel Description">
-                                            </div>
+                                            <span asp-validation-for="TravelDescription" class="text-danger"></span>
+                                        </div>
                                         <button type="submit" class="btn_1 full_width text-center">Submit</button>
                                     </form>
                                     </div>

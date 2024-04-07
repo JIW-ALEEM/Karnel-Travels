@@ -17,16 +17,18 @@
                                     <h5 class="modal-title">Update Travel</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form enctype="multipart/form-data" asp-controller="Admin" asp-action="UpdateTravel2">
+                                    <form method="post">
                                         @Html.AntiForgeryToken()
                                         <div class="form-group mb-3">
                                             <input type="hidden" asp-for="TravelId" class="form-control" />
                                         </div>
                                         <div>
                                             <input type="text" class="form-control" asp-for="TravelMode" placeholder="Enter Spot Name">
+                                            <span asp-validation-for="TravelMode" class="text-danger"></span>
                                         </div>                                      
                                         <div>
                                             <input type="text" class="form-control" asp-for="TravelDescription" placeholder="Enter Spot Description">
+                                            <span asp-validation-for="TravelDescription" class="text-danger"></span>
                                         </div>
                                         <button type="submit" class="btn_1 full_width text-center">Submit</button>
                                     </form>

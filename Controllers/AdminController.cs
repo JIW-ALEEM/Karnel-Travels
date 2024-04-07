@@ -129,17 +129,23 @@ namespace Karnel_Travels.Controllers
 
 
         // Travel Form view
+        [HttpGet]
         public IActionResult Travel()
         {
             return View();
         }
         // Travel Insertion
-        public IActionResult AddTravel(Travel catg)
+        [HttpPost]
+        public IActionResult Travel(Travel catg)
         {
-            db.Add(catg);
-            db.SaveChanges();
-            TempData["Message"] = "Record Inserted Successfully";
-            return RedirectToAction(nameof(FetchTravel));
+            if (ModelState.IsValid)
+            {
+                db.Add(catg);
+                db.SaveChanges();
+                TempData["Message"] = "Record Inserted Successfully";
+                return RedirectToAction(nameof(FetchTravel));
+            }
+            return View();
         }
 
         // Fetch Travel
@@ -161,6 +167,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Travel view
+        [HttpGet]
         public IActionResult UpdateTravel(int? id)
         {
             var data = db.Travels.FirstOrDefault(x => x.TravelId == id);
@@ -168,11 +175,16 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Travel action method
-        public IActionResult UpdateTravel2(Travel UpdateTravel2) {
-            db.Update(UpdateTravel2);
+        [HttpPost]
+        public IActionResult UpdateTravel(Travel UpdateTravel) {
+            if (ModelState.IsValid)
+            {
+                db.Update(UpdateTravel);
             db.SaveChanges();
             TempData["UpdateMessage"] = "Record Updated Successfully"; 
                 return RedirectToAction(nameof(FetchTravel));
+            }
+            return View();
         }
 
         // Hotel Form
