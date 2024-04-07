@@ -17,19 +17,23 @@
                                         <h5 class="modal-title">Add Tourist Spot</h5>
                                     </div>
                                     <div class="modal-body">
-                                        <form enctype="multipart/form-data" asp-controller="Admin" asp-action="AddSpot">
+                                        <form method="post" enctype="multipart/form-data" >
                                              @Html.AntiForgeryToken() 
                                             <div>
-                                                 <input type="text" class="form-control" asp-for="SpotName" placeholder="Enter Spot Name"> 
+                                                 <input type="text" class="form-control" asp-for="SpotName" placeholder="Enter Spot Name">
+                                            <span asp-validation-for="SpotName" class="text-danger"></span>
                                             </div>
                                             <div>
-                                                 <input class="form-control pt-0" type="file" asp-for="SpotImage" placeholder="Enter Spot Image"> 
-                                            </div>
+                                            <input class="form-control pt-0" type="file" name="SpotImage" asp-for="SpotImage" placeholder="Enter Spot Image">
+                                            <span asp-validation-for="SpotImage" class="text-danger"></span>
+                                        </div>
                                             <div>
                                                 <input type="text" class="form-control" asp-for="SpotDescription" placeholder="Enter Spot Description">
+                                            <span asp-validation-for="SpotDescription" class="text-danger"></span>
                                             </div>
                                             <div>
-                                                 <input type="text" class="form-control" asp-for="SpotLocation" placeholder="Enter Spot Location"> 
+                                                 <input type="text" class="form-control" asp-for="SpotLocation" placeholder="Enter Spot Location">
+                                            <span asp-validation-for="SpotLocation" class="text-danger"></span>
                                             </div>
                                             <button type="submit" class="btn_1 full_width text-center">Submit</button>    
                                         </form>

@@ -23,13 +23,15 @@ namespace Karnel_Travels.Controllers
 
 
         // Tourist Spot Form
+        [HttpGet]
         public IActionResult TouristSpot()
         {
             return View();
         }
 
         // Image Insertion in Tourist Spot
-        public IActionResult AddSpot(TouristSpot spot, IFormFile SpotImage)
+        [HttpPost]
+        public IActionResult TouristSpot(TouristSpot spot, IFormFile SpotImage)
         {
             if (SpotImage != null && SpotImage.Length > 0)
             {
@@ -41,10 +43,13 @@ namespace Karnel_Travels.Controllers
                     SpotImage.CopyTo(stream);
                 }
                 spot.SpotImage = dbpath;
-                db.Add(spot);
-                db.SaveChanges();
-                TempData["Message"] = "Record Inserted Successfully";
-                return RedirectToAction(nameof(FetchTouristSpot));
+                if (ModelState.IsValid) // validation
+                {
+                    db.Add(spot);
+                    db.SaveChanges();
+                    TempData["Message"] = "Record Inserted Successfully";
+                    return RedirectToAction(nameof(FetchTouristSpot));
+                }
             }
             return View();
         }
