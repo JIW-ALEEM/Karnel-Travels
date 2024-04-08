@@ -3,21 +3,21 @@ using Karnel_Travels.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Plugins;
 using System.Diagnostics;
 using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Karnel_Travels.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly KarnelTravelContext db;
+        private readonly KarnelTravelContext _db;
 
         public HomeController(KarnelTravelContext db)
         {
-            this.db = db;
+            _db = db;
         }
+
         // Signup View
         [HttpGet]
         public IActionResult SignUp()
@@ -32,46 +32,42 @@ namespace Karnel_Travels.Controllers
             if (ModelState.IsValid)
             {
                 user.UserRoleId = 2;
-                db.Add(user);
-                db.SaveChanges();
+                _db.Add(user);
+                _db.SaveChanges();
                 TempData["Message"] = "User Registered Successfully..";
                 return RedirectToAction(nameof(Login));
             }
             return View();
         }
 
-
-
         // Login Action Method
-        public IActionResult Login(User User)
+        public IActionResult Login(User user)
         {
-            var data = db.Users.FirstOrDefault(x => x.UserEmail == User.UserEmail && x.UserPassword == User.UserPassword);
+            var data = _db.Users.FirstOrDefault(x => x.UserEmail == user.UserEmail && x.UserPassword == user.UserPassword);
             ClaimsIdentity identity = null;
             bool isAuthenticate = false;
             if (data != null)
             {
-
                 if (data.UserRoleId == 1)
                 {
                     identity = new ClaimsIdentity(new[]
                     {
-               new Claim(ClaimTypes.Name, data.UserName),
-               new Claim(ClaimTypes.Email, data.UserEmail),
-                new Claim(ClaimTypes.NameIdentifier, data.UserId.ToString()),
-               new Claim(ClaimTypes.Role,"Admin")
-           }, CookieAuthenticationDefaults.AuthenticationScheme);
+                        new Claim(ClaimTypes.Name, data.UserName),
+                        new Claim(ClaimTypes.Email, data.UserEmail),
+                        new Claim(ClaimTypes.NameIdentifier, data.UserId.ToString()),
+                        new Claim(ClaimTypes.Role, "Admin")
+                    }, CookieAuthenticationDefaults.AuthenticationScheme);
                     isAuthenticate = true;
                 }
                 else
                 {
                     identity = new ClaimsIdentity(new[]
-                 {
-              new Claim(ClaimTypes.Name, data.UserName),
-               new Claim(ClaimTypes.Email, data.UserEmail),
-                new Claim(ClaimTypes.NameIdentifier, data.UserId.ToString()),
-               new Claim(ClaimTypes.Role,"User")
-
-           }, CookieAuthenticationDefaults.AuthenticationScheme);
+                    {
+                        new Claim(ClaimTypes.Name, data.UserName),
+                        new Claim(ClaimTypes.Email, data.UserEmail),
+                        new Claim(ClaimTypes.NameIdentifier, data.UserId.ToString()),
+                        new Claim(ClaimTypes.Role, "User")
+                    }, CookieAuthenticationDefaults.AuthenticationScheme);
                     isAuthenticate = true;
                 }
                 if (isAuthenticate)
@@ -92,62 +88,48 @@ namespace Karnel_Travels.Controllers
             return View();
         }
 
+        // Logout Action Method
         public IActionResult Logout()
         {
             var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(nameof(Login));
         }
 
+        // Index Action Method
         public IActionResult Index()
         {
             return View();
         }
 
+        // About Action Method
         public IActionResult About()
         {
             return View();
         }
+
+        // Destination Action Method
         public IActionResult Destination()
         {
             return View();
         }
+
+        // Hotel Action Method
         public IActionResult Hotel()
         {
-            return View(db.Hotels.ToList());
-        }
-        public IActionResult Resorts()
-        {
-            return View();
-        }
-        public IActionResult Restarurant()
-        {
-            return View();
-        }
-        public IActionResult Travel()
-        {
-            return View();
-        }
-        public IActionResult Tourist()
-        {
-            return View();
-        } 
-
-
-
-        public IActionResult Blog()
-        {
-            return View();
+            var hotels = _db.Hotels.ToList();
+            return View(hotels);
         }
 
-        public IActionResult Contact()
+        // FetchHotels Action Method
+        [HttpGet]
+        public IActionResult FetchHotels(string searchText)
         {
-            return View();
+            // Fetch hotels based on search text
+            var filteredHotels = _db.Hotels.Where(h => h.HotelName.Contains(searchText)).ToList();
+            return PartialView("_HotelCards", filteredHotels); // Return partial view
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        // Other action methods for resorts, restaurants, travel, tourist, blog, contact, privacy, error, etc.
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
