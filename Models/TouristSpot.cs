@@ -6,13 +6,13 @@ namespace Karnel_Travels.Models;
 
 public partial class TouristSpot
 {
-
     public int SpotId { get; set; }
-
     [Required]
     public string SpotName { get; set; } = null!;
     [Required]
     public string SpotImage { get; set; } = null!;
+    [Required]
+    public long SpotPrice { get; set; }
     [Required]
     public string SpotDescription { get; set; } = null!;
     [Required]

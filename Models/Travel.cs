@@ -10,6 +10,8 @@ public partial class Travel
     [Required]
     public string TravelMode { get; set; } = null!;
     [Required]
+    public long TravelPrice { get; set; }
+    [Required]
     public string TravelDescription { get; set; } = null!;
 
     public virtual ICollection<Package> Packages { get; } = new List<Package>();

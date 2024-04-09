@@ -46,6 +46,7 @@
                                 <tr>       
                                     <th scope="col">Mode</th>
                                     <th scope="col">Description</th>
+                                    <th scope="col">Price</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                 </tr>
@@ -68,6 +69,7 @@
                                                 @item.TravelDescription
                                             }
                                         </td>
+                                        <td>@item.TravelPrice</td>
                                         <td><a class="status_btn" asp-action="UpdateTravel" asp-controller="Admin" asp-route-id="@item.TravelId">Update</a></td>
                                         <td><a class="status_btnn" asp-action="DeleteTravel" asp-controller="Admin" asp-route-id="@item.TravelId">Delete</a></td>
                                     </tr>

@@ -49,6 +49,7 @@
                                     <th scope="col">Menu</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Location</th>
+                                    <th scope="col">Price</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                     
@@ -75,6 +76,7 @@
                                             }
                                         </td>
                                         <td>@item.RestaurantLocation</td>
+                                        <td>@item.RestaurantPrice</td>
                                         <td><a class="status_btn" asp-action="UpdateRestaurant" asp-controller="Admin" asp-route-id="@item.RestaurantId">Update</a></td>
                                         <td><a class="status_btnn" asp-action="DeleteRestaurant" asp-controller="Admin" asp-route-id="@item.RestaurantId">Delete</a></td>
                                     </tr>

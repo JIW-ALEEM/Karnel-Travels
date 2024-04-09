@@ -14,6 +14,8 @@ public partial class Restaurant
     [Required]
     public string RestaurantMenu { get; set; } = null!;
     [Required]
+    public long RestaurantPrice { get; set; }
+    [Required]
     public string RestaurantDescription { get; set; } = null!;
     [Required]
     public string RestaurantLocation { get; set; } = null!;

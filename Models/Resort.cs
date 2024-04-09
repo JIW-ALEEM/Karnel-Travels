@@ -12,6 +12,8 @@ public partial class Resort
     [Required]
     public string ResortImage { get; set; } = null!;
     [Required]
+    public long ResortPrice { get; set; }
+    [Required]
     public string ResortDescription { get; set; } = null!;
     [Required]
     public string ResortLocation { get; set; } = null!;

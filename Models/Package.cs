@@ -12,6 +12,8 @@ public partial class Package
     [Required]
     public string PackageImage { get; set; } = null!;
     [Required]
+    public long PackagePrice { get; set; }
+    [Required]
     public string PackageDescription { get; set; } = null!;
 
     public int? PackageTouristSpotId { get; set; }
