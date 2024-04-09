@@ -119,7 +119,7 @@ namespace Karnel_Travels.Controllers
             var hotels = _db.Hotels.ToList();
             return View(hotels);
         }
-        {
+        
         [HttpGet]
         public IActionResult FetchHotels(string searchText)
         {
