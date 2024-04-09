@@ -120,8 +120,6 @@ namespace Karnel_Travels.Controllers
             return View(hotels);
         }
 
-        // FetchHotels Action Method
-        // FetchHotels Action Method
         [HttpGet]
         public IActionResult FetchHotels(string searchText)
         {
