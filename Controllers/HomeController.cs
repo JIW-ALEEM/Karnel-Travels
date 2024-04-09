@@ -119,7 +119,7 @@ namespace Karnel_Travels.Controllers
             var hotels = _db.Hotels.ToList();
             return View(hotels);
         }
-
+        {
         [HttpGet]
         public IActionResult FetchHotels(string searchText)
         {
@@ -128,6 +128,23 @@ namespace Karnel_Travels.Controllers
 
             // Return partial view with hotel cards
             return PartialView("_HotelCards", hotels);
+            return View();
+        }
+        public IActionResult Tourist()
+        {
+            return View();
+        } 
+
+
+
+        public IActionResult Blog()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
         }
 
         // Other action methods for resorts, restaurants, travel, tourist, blog, contact, privacy, error, etc.
