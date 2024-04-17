@@ -98,7 +98,7 @@
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {
-                console.log(result); // Check if the filtered hotels are received
+             
                 $('#hotelContainer').html(result); // Update the HTML container with the fetched hotel cards
             },
             error: function (xhr, status, error) {

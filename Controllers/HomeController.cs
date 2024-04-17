@@ -130,17 +130,78 @@ namespace Karnel_Travels.Controllers
             return PartialView("_HotelCards", hotels);
             return View();
         }
+
         public IActionResult Tourist()
         {
-            return View();
-        } 
+            var Tourists = _db.TouristSpots.ToList();
+            return View(Tourists);
+        }
 
-
-
-        public IActionResult Blog()
+        [HttpGet]
+        public IActionResult FetchTourist(string searchText)
         {
+            // Fetch all hotels if search text is empty or null
+            var Tourists = string.IsNullOrEmpty(searchText) ? _db.TouristSpots.ToList() : _db.TouristSpots.Where(h => h.SpotName.Contains(searchText)).ToList();
+
+            // Return partial view with hotel cards
+            return PartialView("_TouristCards", Tourists);
             return View();
         }
+
+        public IActionResult Travel()
+        {
+            var Travels = _db.Travels.ToList();
+            return View(Travels);
+        }
+
+        [HttpGet]
+        public IActionResult FetchTravel(string searchText)
+        {
+            // Fetch all hotels if search text is empty or null
+            var Travels = string.IsNullOrEmpty(searchText) ? _db.Travels.ToList() : _db.Travels.Where(h => h.TravelMode.Contains(searchText)).ToList();
+
+            // Return partial view with hotel cards
+            return PartialView("_TravelCards", Travels);
+            return View();
+        }
+
+
+        public IActionResult Restaurant()
+        {
+            var Restaurants = _db.Restaurants.ToList();
+            return View(Restaurants);
+        }
+
+        [HttpGet]
+        public IActionResult FetchRestaurants(string searchText)
+        {
+            // Fetch all hotels if search text is empty or null
+            var Restaurants = string.IsNullOrEmpty(searchText) ? _db.Restaurants.ToList() : _db.Restaurants.Where(h => h.RestaurantName.Contains(searchText)).ToList();
+
+            // Return partial view with hotel cards
+            return PartialView("_RestaurantCards", Restaurants);
+            return View();
+        }
+
+
+
+        public IActionResult Resorts()
+        {
+            var Resorts = _db.Resorts.ToList();
+            return View(Resorts);
+        }
+
+        [HttpGet]
+        public IActionResult FetchResorts(string searchText)
+        {
+            // Fetch all hotels if search text is empty or null
+            var Resorts = string.IsNullOrEmpty(searchText) ? _db.Resorts.ToList() : _db.Resorts.Where(h => h.ResortName.Contains(searchText)).ToList();
+
+            // Return partial view with hotel cards
+            return PartialView("_ResortsCards", Resorts);
+            return View();
+        }
+
 
         public IActionResult Contact()
         {

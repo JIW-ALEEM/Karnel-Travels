@@ -27,9 +27,23 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a asp-controller="Home" asp-action="Index" class="nav-link">Home</a></li>
                     <li class="nav-item"><a asp-controller="Home" asp-action="About" class="nav-link">About</a></li>
-                    <li class="nav-item"><a asp-controller="Home" asp-action="Destination" class="nav-link">Destination</a></li>
-                    <li class="nav-item"><a asp-controller="Home" asp-action="Hotel" class="nav-link">Hotel</a></li>
-                    <li class="nav-item"><a asp-controller="Home" asp-action="Blog" class="nav-link">Blog</a></li>
+                    
+                    <div class="dropdown  pt-4">
+                        <a class="btn btn-secondary text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Information 
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li class="nav-item"><a asp-controller="Home" asp-action="Hotel" class="nav-link">Hotel</a></li>
+                            <li class="nav-item"><a asp-controller="Home" asp-action="Tourist" class="nav-link">Tourist</a></li>
+                            <li class="nav-item"><a asp-controller="Home" asp-action="Travel" class="nav-link">Travel</a></li>
+                            <li class="nav-item"><a asp-controller="Home" asp-action="Restaurant" class="nav-link">Restaurant</a></li>
+                            <li class="nav-item"><a asp-controller="Home" asp-action="Resorts" class="nav-link">Resorts</a></li>
+                        </ul>
+                    </div>
+                   
+
+                    
                     <li class="nav-item"><a asp-controller="Home" asp-action="Contact" class="nav-link">Contact</a></li>
                     @using System.Security.Claims;
                     @{
