@@ -119,7 +119,7 @@ namespace Karnel_Travels.Controllers
             var hotels = _db.Hotels.ToList();
             return View(hotels);
         }
-        
+
         [HttpGet]
         public IActionResult FetchHotels(string searchText)
         {
@@ -150,18 +150,18 @@ namespace Karnel_Travels.Controllers
 
         public IActionResult Travel()
         {
-            var Travels = _db.Travels.ToList();
-            return View(Travels);
+            var travels = _db.Travels.ToList();
+            return View(travels);
         }
 
         [HttpGet]
         public IActionResult FetchTravel(string searchText)
         {
             // Fetch all hotels if search text is empty or null
-            var Travels = string.IsNullOrEmpty(searchText) ? _db.Travels.ToList() : _db.Travels.Where(h => h.TravelMode.Contains(searchText)).ToList();
+            var t = string.IsNullOrEmpty(searchText) ? _db.Travels.ToList() : _db.Travels.Where(h => h.TravelMode.Contains(searchText)).ToList();
 
             // Return partial view with hotel cards
-            return PartialView("_TravelCards", Travels);
+            return PartialView("_TravelCards",t);
             return View();
         }
 
@@ -176,7 +176,7 @@ namespace Karnel_Travels.Controllers
         public IActionResult FetchRestaurants(string searchText)
         {
             // Fetch all hotels if search text is empty or null
-            var Restaurants = string.IsNullOrEmpty(searchText) ? _db.Restaurants.ToList() : _db.Restaurants.Where(h => h.RestaurantName.Contains(searchText)).ToList();
+            var Restaurants = string.IsNullOrEmpty(searchText) ? _db.Restaurants.ToList() : _db.Restaurants.Where(y => y.RestaurantName.Contains(searchText)).ToList();
 
             // Return partial view with hotel cards
             return PartialView("_RestaurantCards", Restaurants);

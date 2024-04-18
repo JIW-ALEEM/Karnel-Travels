@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Karnel_Travels.Models.Travel>
+
+@foreach (var x in Model)
+{
+    <div class="col-md-4 ">
+
+        <div class="project-wrap hotel">
+                        <div class="text p-4">
+                <span class="price">$@x.TravelPrice/person</span>
+               
+                <h3><a href="#">@x.TravelMode</a></h3>
+                <p class="location"><span class="fa fa-map-marker"></span>@x.TravelDescription</p>
+           
+            </div>
+        </div>
+    </div>
+    
+}

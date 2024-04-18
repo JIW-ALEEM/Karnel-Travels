@@ -1,12 +1,12 @@
-﻿@model IEnumerable<Karnel_Travels.Models.Hotel>
+﻿@model IEnumerable<Karnel_Travels.Models.Travel>
 
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../images/bg_1.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
             <div class="col-md-9 ftco-animate pb-5 text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Hotel <i class="fa fa-chevron-right"></i></span></p>
-                <h1 class="mb-0 bread">Hotel</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Travel <i class="fa fa-chevron-right"></i></span></p>
+                <h1 class="mb-0 bread">Travel</h1>
             </div>
         </div>
     </div>
@@ -21,10 +21,10 @@
                         <div class="row no-gutters">
                             <div class="col-lg d-flex">
                                 <div class="form-group p-4 border-0">
-                                    <label for="#">Destination</label>
+                                    <label for="#">Travel</label>
                                     <div class="form-field">
                                         <div class="icon"><span class="fa fa-search"></span></div>
-                                        <input id="searchInput" type="text" class="form-control" placeholder="Search place">
+                                        <input id="searchInput" type="text" class="form-control" placeholder="Search Travel">
                                     </div>
                                 </div>
                             </div>
@@ -46,8 +46,8 @@
 
 <section class="ftco-section">
     <div class="container">
-        <div id="hotelContainer" class="row">
-            @Html.Partial("_HotelCards", Model)
+        <div id="TravelContainer" class="row">
+            @Html.Partial("_TravelCards", Model)
         </div>
     </div>
 </section>
@@ -67,19 +67,19 @@
     </div>
 </section>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
     $(document).ready(function () {
         // Fetch all records initially
-        fetchHotels('');
+        fetchTravel('');
 
         // Attach keyup event handler to the search input
         $('#searchInput').keyup(function () {
             var searchText = $(this).val(); // Get the search text
             if (searchText.trim() === '') {
-                fetchHotels(); // Fetch all hotels if search text is empty
+                fetchTravel(); // Fetch all hotels if search text is empty
             } else {
-                fetchHotels(searchText); // Fetch hotels based on search text
+                fetchTravel(searchText); // Fetch hotels based on search text
             }
         });
 
@@ -87,24 +87,27 @@
         $('#searchForm').submit(function (event) {
             event.preventDefault(); // Prevent form submission
             var searchText = $('#searchInput').val(); // Get the search text
-            fetchHotels(searchText); // Fetch hotels based on search text
+            fetchTravel(searchText); 
+   
         });
     });
 
     // Function to fetch hotels via AJAX
-    function fetchHotels(searchText = '') {
+    function fetchTravel(searchText = '') {
         $.ajax({
-            url: '/Home/FetchHotels',
+            url: '/Home/FetchTravel',
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {
-                console.log(result); // Check if the filtered hotels are received
-                $('#hotelContainer').html(result); // Update the HTML container with the fetched hotel cards
+           
+                $('#TravellContainer').html(result); // Update the HTML container with the fetched hotel cards
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
             }
+                
         });
+
     }
 </script>
 
