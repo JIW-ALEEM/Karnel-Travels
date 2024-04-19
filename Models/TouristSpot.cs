@@ -10,15 +10,15 @@ public partial class TouristSpot
     [Required]
     public string SpotName { get; set; } = null!;
 
-    public string? SpotImage { get; set; }
-
+    public string SpotImage { get; set; } = null!;
     [Required]
     public long SpotPrice { get; set; }
-
     [Required]
     public string SpotDescription { get; set; } = null!;
     [Required]
     public string SpotLocation { get; set; } = null!;
+
+    public virtual ICollection<Feedback> Feedbacks { get; } = new List<Feedback>();
 
     public virtual ICollection<Package> Packages { get; } = new List<Package>();
 }

@@ -16,5 +16,7 @@ public partial class User
 
     public int? UserRoleId { get; set; }
 
+    public virtual ICollection<Feedback> Feedbacks { get; } = new List<Feedback>();
+
     public virtual Role? UserRole { get; set; }
 }

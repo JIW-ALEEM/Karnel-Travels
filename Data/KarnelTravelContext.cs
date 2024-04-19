@@ -16,6 +16,8 @@ public partial class KarnelTravelContext : DbContext
     {
     }
 
+    public virtual DbSet<Feedback> Feedbacks { get; set; }
+
     public virtual DbSet<Hotel> Hotels { get; set; }
 
     public virtual DbSet<Package> Packages { get; set; }
@@ -38,9 +40,56 @@ public partial class KarnelTravelContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Feedback>(entity =>
+        {
+            entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__6A4BEDD614D8142A");
+
+            entity.ToTable("Feedback");
+
+            entity.HasIndex(e => e.FeedbackUserEmail, "UQ__Feedback__AE47C29C2FF1699C").IsUnique();
+
+            entity.Property(e => e.FeedbackMassage)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.FeedbackUserEmail)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.FeedbackUserName)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.FeedbackHotel).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.FeedbackHotelId)
+                .HasConstraintName("FK__Feedback__Feedba__6383C8BA");
+
+            entity.HasOne(d => d.FeedbackPackage).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.FeedbackPackageId)
+                .HasConstraintName("FK__Feedback__Feedba__66603565");
+
+            entity.HasOne(d => d.FeedbackResort).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.FeedbackResortId)
+                .HasConstraintName("FK__Feedback__Feedba__656C112C");
+
+            entity.HasOne(d => d.FeedbackRestaurant).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.FeedbackRestaurantId)
+                .HasConstraintName("FK__Feedback__Feedba__6477ECF3");
+
+            entity.HasOne(d => d.FeedbackTouristSpot).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.FeedbackTouristSpotId)
+                .HasConstraintName("FK__Feedback__Feedba__619B8048");
+
+            entity.HasOne(d => d.FeedbackTravel).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.FeedbackTravelId)
+                .HasConstraintName("FK__Feedback__Feedba__628FA481");
+
+            entity.HasOne(d => d.FeedbackUser).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.FeedbackUserId)
+                .HasConstraintName("FK__Feedback__Feedba__60A75C0F");
+        });
+
         modelBuilder.Entity<Hotel>(entity =>
         {
-            entity.HasKey(e => e.HotelId).HasName("PK__Hotel__46023BDF5197FB2F");
+            entity.HasKey(e => e.HotelId).HasName("PK__Hotel__46023BDF325218C1");
 
             entity.ToTable("Hotel");
 
@@ -54,11 +103,14 @@ public partial class KarnelTravelContext : DbContext
             entity.Property(e => e.HotelName)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.HotelRooms)
+                .HasMaxLength(255)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Package>(entity =>
         {
-            entity.HasKey(e => e.PackageId).HasName("PK__Package__322035CC886D1781");
+            entity.HasKey(e => e.PackageId).HasName("PK__Package__322035CC2C012C6D");
 
             entity.ToTable("Package");
 
@@ -69,31 +121,37 @@ public partial class KarnelTravelContext : DbContext
             entity.Property(e => e.PackageName)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.PackagePerson)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.PackageTour)
+                .HasMaxLength(255)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.PackageHotel).WithMany(p => p.Packages)
                 .HasForeignKey(d => d.PackageHotelId)
-                .HasConstraintName("FK__Package__Package__34C8D9D1");
+                .HasConstraintName("FK__Package__Package__5AEE82B9");
 
             entity.HasOne(d => d.PackageResort).WithMany(p => p.Packages)
                 .HasForeignKey(d => d.PackageResortId)
-                .HasConstraintName("FK__Package__Package__36B12243");
+                .HasConstraintName("FK__Package__Package__5CD6CB2B");
 
             entity.HasOne(d => d.PackageRestaurant).WithMany(p => p.Packages)
                 .HasForeignKey(d => d.PackageRestaurantId)
-                .HasConstraintName("FK__Package__Package__35BCFE0A");
+                .HasConstraintName("FK__Package__Package__5BE2A6F2");
 
             entity.HasOne(d => d.PackageTouristSpot).WithMany(p => p.Packages)
                 .HasForeignKey(d => d.PackageTouristSpotId)
-                .HasConstraintName("FK__Package__Package__32E0915F");
+                .HasConstraintName("FK__Package__Package__59063A47");
 
             entity.HasOne(d => d.PackageTravel).WithMany(p => p.Packages)
                 .HasForeignKey(d => d.PackageTravelId)
-                .HasConstraintName("FK__Package__Package__33D4B598");
+                .HasConstraintName("FK__Package__Package__59FA5E80");
         });
 
         modelBuilder.Entity<Resort>(entity =>
         {
-            entity.HasKey(e => e.ResortId).HasName("PK__Resort__7D2D740E304DC060");
+            entity.HasKey(e => e.ResortId).HasName("PK__Resort__7D2D740E74F791E4");
 
             entity.ToTable("Resort");
 
@@ -111,7 +169,7 @@ public partial class KarnelTravelContext : DbContext
 
         modelBuilder.Entity<Restaurant>(entity =>
         {
-            entity.HasKey(e => e.RestaurantId).HasName("PK__Restaura__87454C95ECC4B263");
+            entity.HasKey(e => e.RestaurantId).HasName("PK__Restaura__87454C9588F82F68");
 
             entity.ToTable("Restaurant");
 
@@ -132,7 +190,7 @@ public partial class KarnelTravelContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__8AFACE1A6184A4E4");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__8AFACE1A6B3D6E7E");
 
             entity.ToTable("Role");
 
@@ -143,7 +201,7 @@ public partial class KarnelTravelContext : DbContext
 
         modelBuilder.Entity<TouristSpot>(entity =>
         {
-            entity.HasKey(e => e.SpotId).HasName("PK__TouristS__61645F8742AC7F22");
+            entity.HasKey(e => e.SpotId).HasName("PK__TouristS__61645F8720B4F464");
 
             entity.ToTable("TouristSpot");
 
@@ -161,11 +219,14 @@ public partial class KarnelTravelContext : DbContext
 
         modelBuilder.Entity<Travel>(entity =>
         {
-            entity.HasKey(e => e.TravelId).HasName("PK__Travel__E9315235DD406260");
+            entity.HasKey(e => e.TravelId).HasName("PK__Travel__E9315235757E3D3A");
 
             entity.ToTable("Travel");
 
             entity.Property(e => e.TravelDescription).HasColumnType("text");
+            entity.Property(e => e.TravelImage)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.TravelMode)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -173,9 +234,9 @@ public partial class KarnelTravelContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C2093D30C");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4CB0E212C3");
 
-            entity.HasIndex(e => e.UserEmail, "UQ__Users__08638DF8AABB7F0C").IsUnique();
+            entity.HasIndex(e => e.UserEmail, "UQ__Users__08638DF86A7DCFEB").IsUnique();
 
             entity.Property(e => e.UserEmail)
                 .HasMaxLength(255)
@@ -189,7 +250,7 @@ public partial class KarnelTravelContext : DbContext
 
             entity.HasOne(d => d.UserRole).WithMany(p => p.Users)
                 .HasForeignKey(d => d.UserRoleId)
-                .HasConstraintName("FK__Users__UserRoleI__267ABA7A");
+                .HasConstraintName("FK__Users__UserRoleI__4CA06362");
         });
 
         OnModelCreatingPartial(modelBuilder);
