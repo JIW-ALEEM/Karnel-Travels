@@ -92,7 +92,7 @@ FeedbackUserEmail VARCHAR(255) NOT NULL UNIQUE,
 FeedbackMassage VARCHAR (500) NOT NULL,
 
 FeedbackUserId INT
-FOREIGN KEY (FeedbackUserId) REFERENCES ROLE (RoleId),
+FOREIGN KEY (FeedbackUserId) REFERENCES Users (UserId),
 
 FeedbackTouristSpotId INT
 FOREIGN KEY (FeedbackTouristSpotId) REFERENCES TouristSpot (SpotId),
