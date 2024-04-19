@@ -12,7 +12,7 @@ INSERT INTO ROLE (RoleName) VALUES ('User');
 CREATE TABLE Users(
 UserId INT PRIMARY KEY IDENTITY(1,1),
 UserName VARCHAR(255) NOT NULL,
-UserEmail VARCHAR(255) NOT NULL Unique,
+UserEmail VARCHAR(255) NOT NULL UNIQUE,
 UserPassword VARCHAR(255) NOT NULL,
 UserRoleId INT
 FOREIGN KEY (UserRoleId) REFERENCES ROLE (RoleId)
@@ -31,6 +31,7 @@ SpotLocation VARCHAR(255) NOT NULL,
 CREATE TABLE Travel(
 TravelId INT PRIMARY KEY IDENTITY(1,1),
 TravelMode VARCHAR(255) NOT NULL,
+TravelImage VARCHAR(255) NOT NULL,
 TravelPrice BIGINT NOT NULL,
 TravelDescription TEXT NOT NULL,
 );
@@ -38,6 +39,7 @@ TravelDescription TEXT NOT NULL,
 CREATE TABLE Hotel(
 HotelId INT PRIMARY KEY IDENTITY(1,1),
 HotelName VARCHAR(255) NOT NULL,
+HotelRooms VARCHAR(255) NOT NULL,
 HotelImage VARCHAR(255) NOT NULL,
 HotelPrice BIGINT NOT NULL,
 HotelDescription TEXT NOT NULL,
@@ -67,6 +69,8 @@ CREATE TABLE Package(
 PackageId INT PRIMARY KEY IDENTITY(1,1),
 PackageName VARCHAR(255) NOT NULL,
 PackageImage VARCHAR(255) NOT NULL,
+PackagePerson VARCHAR(255) NOT NULL,
+PackageTour VARCHAR(255) NOT NULL,
 PackagePrice BIGINT NOT NULL,
 PackageDescription TEXT NOT NULL,
 PackageTouristSpotId INT
@@ -79,4 +83,32 @@ PackageRestaurantId INT
 FOREIGN KEY (PackageRestaurantId) REFERENCES Restaurant (RestaurantId),
 PackageResortId INT
 FOREIGN KEY (PackageResortId) REFERENCES Resort (ResortId)
+);
+
+CREATE TABLE Feedback(
+FeedbackId INT PRIMARY KEY IDENTITY(1,1),
+FeedbackUserName VARCHAR(255) NOT NULL,
+FeedbackUserEmail VARCHAR(255) NOT NULL UNIQUE,
+FeedbackMassage VARCHAR (500) NOT NULL,
+
+FeedbackUserId INT
+FOREIGN KEY (FeedbackUserId) REFERENCES ROLE (RoleId),
+
+FeedbackTouristSpotId INT
+FOREIGN KEY (FeedbackTouristSpotId) REFERENCES TouristSpot (SpotId),
+
+FeedbackTravelId INT
+FOREIGN KEY (FeedbackTravelId) REFERENCES Travel (TravelId),
+
+FeedbackHotelId INT
+FOREIGN KEY (FeedbackHotelId) REFERENCES Hotel (HotelId),
+
+FeedbackRestaurantId INT
+FOREIGN KEY (FeedbackRestaurantId) REFERENCES Restaurant (RestaurantId),
+
+FeedbackResortId INT
+FOREIGN KEY (FeedbackResortId) REFERENCES Resort (ResortId),
+
+FeedbackPackageId INT
+FOREIGN KEY (FeedbackPackageId) REFERENCES Package (PackageId)
 );
