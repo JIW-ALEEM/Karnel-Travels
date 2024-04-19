@@ -9,8 +9,7 @@ public partial class Restaurant
     public int RestaurantId { get; set; }
     [Required]
     public string RestaurantName { get; set; } = null!;
-    [Required]
-    public string RestaurantImage { get; set; } = null!;
+    public string? RestaurantImage { get; set; }
     [Required]
     public string RestaurantMenu { get; set; } = null!;
     [Required]

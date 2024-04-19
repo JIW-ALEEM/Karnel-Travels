@@ -9,8 +9,8 @@ public partial class Package
     public int PackageId { get; set; }
     [Required]
     public string PackageName { get; set; } = null!;
-    [Required]
-    public string PackageImage { get; set; } = null!;
+    public string? PackageImage { get; set; }
+
     [Required]
     public long PackagePrice { get; set; }
     [Required]
