@@ -33,6 +33,7 @@ namespace Karnel_Travels.Controllers
         [HttpPost]
         public IActionResult TouristSpot(TouristSpot spot, IFormFile SpotImage)
         {
+
             if (SpotImage != null && SpotImage.Length > 0)
             {
                 var filename = Path.GetFileName(SpotImage.FileName);
@@ -43,6 +44,7 @@ namespace Karnel_Travels.Controllers
                     SpotImage.CopyTo(stream);
                 }
                 spot.SpotImage = dbpath;
+
                 if (ModelState.IsValid) // validation
                 {
                     db.Add(spot);
@@ -50,6 +52,10 @@ namespace Karnel_Travels.Controllers
                     TempData["Message"] = "Record Inserted Successfully";
                     return RedirectToAction(nameof(FetchTouristSpot));
                 }
+            }
+            else
+            {
+                ModelState.AddModelError("SpotImage", "Spot Image field is Required");
             }
             return View();
         }
