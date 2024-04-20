@@ -46,6 +46,8 @@
                                 <tr>
                                     <th scope="col">Image</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Tour Days</th>
+                                    <th scope="col">Person</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Tourist Spot</th>
                                     <th scope="col">Restaurant</th>
@@ -64,6 +66,8 @@
                                     <tr>
                                         <td><img src="~/@item.PackageImage" class="d-flex m-auto" width="50" height="50" alt="..."></td>
                                         <td>@item.PackageName</td>
+                                        <td>@item.PackageTour</td>
+                                        <td>@item.PackagePerson</td>
                                         <td>
                                             @if (item.PackageDescription.Length > 10)
                                             {

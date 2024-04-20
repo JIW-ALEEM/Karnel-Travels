@@ -613,7 +613,8 @@ namespace Karnel_Travels.Controllers
 
 
 
-
+        // Package Form
+        [HttpGet]
         public IActionResult Package()
         {
             ViewBag.Travel = new SelectList(db.Travels, "TravelId", "TravelMode");
@@ -624,8 +625,11 @@ namespace Karnel_Travels.Controllers
             return View();
         }
 
-        public IActionResult AddPackage(Package pack, IFormFile PackageImage)
+        // Image Insertion in Package
+        [HttpPost]
+        public IActionResult Package(Package Package1, IFormFile PackageImage)
         {
+
             if (PackageImage != null && PackageImage.Length > 0)
             {
                 var filename = Path.GetFileName(PackageImage.FileName);
@@ -635,15 +639,24 @@ namespace Karnel_Travels.Controllers
                 {
                     PackageImage.CopyTo(stream);
                 }
-                pack.PackageImage = dbpath;
-                db.Add(pack);
-                db.SaveChanges();
-                TempData["Message"] = "Record Inserted Successfully";
-                return RedirectToAction(nameof(FetchPackage));
+                Package1.PackageImage = dbpath;
+
+                if (ModelState.IsValid) // validation
+                {
+                    db.Add(Package1);
+                    db.SaveChanges();
+                    TempData["Message"] = "Record Inserted Successfully";
+                    return RedirectToAction(nameof(FetchPackage));
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("PackageImage", "Package Image field is Required");
             }
             return View();
         }
-   
+
+        // Fetch Package
         public IActionResult FetchPackage()
         {
             return View(db.Packages
@@ -655,7 +668,7 @@ namespace Karnel_Travels.Controllers
                 .ToList());
         }
 
-
+        // Delete Package 
         public IActionResult DeletePackage(int? id)
         {
             var data = db.Packages.FirstOrDefault(x => x.PackageId == id);
@@ -664,7 +677,9 @@ namespace Karnel_Travels.Controllers
             TempData["DelMessage"] = "Record Deleted Successfully";
             return RedirectToAction(nameof(FetchPackage));
         }
-
+       
+        // Update Package view
+        [HttpGet]
         public IActionResult UpdatePackage(int? id)
         {
             var data = db.Packages.FirstOrDefault(x => x.PackageId == id);
@@ -675,8 +690,10 @@ namespace Karnel_Travels.Controllers
             ViewBag.Hotel = new SelectList(db.Hotels, "HotelId", "HotelName");
             return View(data);
         }
-
-        public IActionResult UpdatePackage2(Package UpdatePackage2, IFormFile file)
+      
+        // Update Package action method
+        [HttpPost]
+        public IActionResult UpdatePackage(Package UpdatePackage, IFormFile file)
         {
             if (file != null && file.Length > 0)
             {
@@ -693,31 +710,31 @@ namespace Karnel_Travels.Controllers
                     file.CopyTo(stream);
                 }
                 var dbPath = Path.Combine("assets/img/Package", unique_name);
-                UpdatePackage2.PackageImage = dbPath;
-                db.Update(UpdatePackage2);
+                UpdatePackage.PackageImage = dbPath;
+                db.Update(UpdatePackage);
                 db.SaveChanges();
                 TempData["UpdateMessage"] = "Record Updated Successfully";
                 return RedirectToAction(nameof(FetchPackage));
             }
             else
             {
-                var existingPackage = db.Packages.FirstOrDefault(p => p.PackageId == UpdatePackage2.PackageId);
+                var existingPackage = db.Packages.FirstOrDefault(p => p.PackageId == UpdatePackage.PackageId);
                 if (existingPackage != null)
                 {
-                    UpdatePackage2.PackageImage = existingPackage.PackageImage;
+                    UpdatePackage.PackageImage = existingPackage.PackageImage;
 
                     // Detach existing tracked entity
                     db.Entry(existingPackage).State = EntityState.Detached;
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "Package not found";
+                    TempData["ErrorMessage"] = "Product not found";
                     return RedirectToAction(nameof(FetchPackage));
                 }
             }
 
             // Update entity state
-            db.Update(UpdatePackage2);
+            db.Update(UpdatePackage);
             db.SaveChanges();
 
             TempData["UpdateMessage"] = file != null ? "Record Updated Successfully" : "Record Updated Successfully with Previous Image";

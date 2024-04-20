@@ -2,52 +2,67 @@
 @{
     Layout = "_AdminLayout";
 }
-    <div class="main_content_iner ">
-        <div class="container-fluid plr_30 body_white_bg pt_30">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="white_box mb_30">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6">
 
-                                <div class="modal-content cs_modal">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Add Package</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                    <form enctype="multipart/form-data" asp-controller="Admin" asp-action="AddPackage">
+
+<div class="main_content_iner ">
+    <div class="container-fluid plr_30 body_white_bg pt_30">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_box mb_30">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="modal-content cs_modal">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Package</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" enctype="multipart/form-data">
                                         @Html.AntiForgeryToken()
                                         <div>
-                                                <input type="text" class="form-control" asp-for="PackageName" placeholder="Enter Package Name">
-                                            </div>
-                                            <div>
-                                                <input class="form-control pt-0" type="file" asp-for="PackageImage" placeholder="Enter Package Image">
-                                            </div>
-                                            <div>
-                                                <input type="text" class="form-control" asp-for="PackageDescription" placeholder="Enter Package Description">
-                                            </div>
+
+                                            <input type="text" class="form-control" asp-for="PackageName"
+                                                   placeholder="Enter Package Name">
+                                            <span asp-validation-for="PackageName" class="text-danger"></span>
+                                        </div>
                                         <div>
-                                            <select class="form-select mb-2" asp-items="ViewBag.Travel" asp-for="PackageTravelId">
+                                            <input type="file" class="form-control pt-0" asp-for="PackageImage"
+                                                   placeholder="Enter Package Image">
+                                            <span asp-validation-for="PackageImage" class="text-danger"></span>
+                                        </div>
+                                        <div>
+                                            <input type="text" class="form-control" asp-for="PackageDescription" placeholder="Enter Package Description">
+                                            <span asp-validation-for="PackageDescription" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="d-flex">
+                                            <input type="text" class="form-control m-2" asp-for="PackagePerson" placeholder="Enter Package Persons">
+                                            <span asp-validation-for="PackagePerson" class="text-danger"></span>
+                                          
+                                            <input type="text" class="form-control m-2" asp-for="PackageTour" placeholder="Enter Package Tour Days">
+                                            <span asp-validation-for="PackageTour" class="text-danger"></span>
+                                        </div>
+                                        <div class="d-flex">
+                                            <select class="form-select m-2" asp-items="ViewBag.Travel" asp-for="PackageTravelId">
                                                 <option selected>Select Travel Mode</option>
                                             </select>
                                         </div>
-                                        <div>
-                                            <select class="form-select mb-2" asp-items="ViewBag.TouristSpot" asp-for="PackageTouristSpotId">
+
+                                        <div class="d-flex">
+
+                                            <select class="form-select m-2" asp-items="ViewBag.TouristSpot" asp-for="PackageTouristSpotId">
                                                 <option selected>Select TouristSpot</option>
                                             </select>
-                                        </div>
-                                        <div>
-                                            <select class="form-select mb-2" asp-items="ViewBag.Restaurant" asp-for="PackageRestaurantId">
+                                            <select class="form-select m-2" asp-items="ViewBag.Restaurant" asp-for="PackageRestaurantId">
                                                 <option selected>Select Restaurant</option>
                                             </select>
                                         </div>
-                                        <div>
-                                            <select class="form-select mb-2" asp-items="ViewBag.Resort" asp-for="PackageResortId">
+
+                                        <div class="d-flex">
+
+                                            <select class="form-select m-2" asp-items="ViewBag.Resort" asp-for="PackageResortId">
                                                 <option selected>Select Resort</option>
                                             </select>
-                                        </div>
-                                        <div>
-                                            <select class="form-select mb-2" asp-items="ViewBag.Hotel" asp-for="PackageHotelId">
+                                            <select class="form-select m-2" asp-items="ViewBag.Hotel" asp-for="PackageHotelId">
                                                 <option selected>Select Hotel</option>
                                             </select>
                                         </div>
@@ -55,9 +70,7 @@
                                             <input type="text" class="form-control" asp-for="PackagePrice" placeholder="Enter Package Price">
                                         </div>
                                         <button type="submit" class="btn_1 full_width text-center">Submit</button>
-
                                     </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -66,4 +79,4 @@
             </div>
         </div>
     </div>
-   
+</div>
