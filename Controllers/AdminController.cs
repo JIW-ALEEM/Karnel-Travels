@@ -1,5 +1,6 @@
 ﻿using Karnel_Travels.Data;
 using Karnel_Travels.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace Karnel_Travels.Controllers
         {
             this.db = db;
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminIndex()
         {
             return View();
@@ -23,6 +25,7 @@ namespace Karnel_Travels.Controllers
 
 
         // Tourist Spot Form
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult TouristSpot()
         {
@@ -61,6 +64,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Fetch Tourist Spot 
+        [Authorize(Roles = "Admin")]
         public IActionResult FetchTouristSpot()
         {
 
@@ -68,7 +72,6 @@ namespace Karnel_Travels.Controllers
         }
 
         // Delete Tourist Spot 
-
         public IActionResult DeleteSpot(int? id)
         {
             var data = db.TouristSpots.FirstOrDefault(x => x.SpotId == id);
@@ -79,6 +82,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Tourist Spot view
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult UpdateSpot(int? id)
         {
@@ -142,6 +146,7 @@ namespace Karnel_Travels.Controllers
 
 
         // Travel Form view
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Travel()
         {
@@ -179,6 +184,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Fetch Travel
+        [Authorize(Roles = "Admin")]
         public IActionResult FetchTravel()
         {
 
@@ -186,7 +192,6 @@ namespace Karnel_Travels.Controllers
         }
 
         // Delete Travel 
-
         public IActionResult DeleteTravel(int? id)
         {
             var data = db.Travels.FirstOrDefault(x => x.TravelId == id);
@@ -197,6 +202,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Travel view
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult UpdateTravel(int? id)
         {
@@ -260,6 +266,7 @@ namespace Karnel_Travels.Controllers
 
 
         // Hotel Form
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Hotel()
         {
@@ -298,6 +305,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Fetch Hotel
+        [Authorize(Roles = "Admin")]
         public IActionResult FetchHotel()
         {
 
@@ -315,6 +323,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Hotel view
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult UpdateHotel(int? id)
         {
@@ -379,6 +388,7 @@ namespace Karnel_Travels.Controllers
 
 
         // Restaurant Form
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Restaurant()
         {
@@ -417,6 +427,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Fetch Restaurant
+        [Authorize(Roles = "Admin")]
         public IActionResult FetchRestaurant()
         {
             return View(db.Restaurants.ToList());
@@ -433,6 +444,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Restaurant view
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult UpdateRestaurant(int? id)
         {
@@ -496,6 +508,7 @@ namespace Karnel_Travels.Controllers
 
 
         // Resort Form
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Resort()
         {
@@ -534,6 +547,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Fetch Resort
+        [Authorize(Roles = "Admin")]
         public IActionResult FetchResort()
         {
 
@@ -551,6 +565,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Resort view
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult UpdateResort(int? id)
         {
@@ -614,6 +629,7 @@ namespace Karnel_Travels.Controllers
 
 
         // Package Form
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Package()
         {
@@ -657,6 +673,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Fetch Package
+        [Authorize(Roles = "Admin")]
         public IActionResult FetchPackage()
         {
             return View(db.Packages
@@ -677,8 +694,9 @@ namespace Karnel_Travels.Controllers
             TempData["DelMessage"] = "Record Deleted Successfully";
             return RedirectToAction(nameof(FetchPackage));
         }
-       
+
         // Update Package view
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult UpdatePackage(int? id)
         {
