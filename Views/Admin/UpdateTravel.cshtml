@@ -14,25 +14,26 @@
 
                             <div class="modal-content cs_modal">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Update Travel</h5>
+                                    <h5 class="modal-title">Add Travel</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="post">
+                                    <form enctype="multipart/form-data" method="post">
                                         @Html.AntiForgeryToken()
                                         <div class="form-group mb-3">
                                             <input type="hidden" asp-for="TravelId" class="form-control" />
                                         </div>
                                         <div>
-                                            <input type="text" class="form-control" asp-for="TravelMode" placeholder="Enter Spot Name">
-                                            <span asp-validation-for="TravelMode" class="text-danger"></span>
-                                        </div>                                      
-                                        <div>
-                                            <input type="text" class="form-control" asp-for="TravelDescription" placeholder="Enter Spot Description">
-                                            <span asp-validation-for="TravelDescription" class="text-danger"></span>
+                                            <input type="text" class="form-control" asp-for="TravelMode" placeholder="Enter Travel Mode">
                                         </div>
                                         <div>
-                                            <input type="text" class="form-control" asp-for="TravelPrice" placeholder="Enter Travel Price">
-                                            <span asp-validation-for="TravelPrice" class="text-danger"></span>
+                                            <input class="form-control pt-0" type="file" name="file">
+                                            <img src="~/@Model.TravelImage" width="60" height="60">
+                                        </div>
+                                        <div>
+                                            <input type="text" class="form-control" asp-for="TravelDescription" placeholder="Enter Travel Description">
+                                        </div>
+                                        <div>
+                                            <input type="number" class="form-control" asp-for="TravelPrice" placeholder="Enter Travel Price">
                                         </div>
                                         <button type="submit" class="btn_1 full_width text-center">Submit</button>
                                     </form>
@@ -45,4 +46,3 @@
         </div>
     </div>
 </div>
-

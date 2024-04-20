@@ -79,6 +79,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Tourist Spot view
+        [HttpGet]
         public IActionResult UpdateSpot(int? id)
         {
             var data = db.TouristSpots.FirstOrDefault(x => x.SpotId == id);
@@ -86,7 +87,8 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Tourist Spot action method
-        public IActionResult UpdateSpot2(TouristSpot UpdateSpot2, IFormFile file)
+        [HttpPost]
+        public IActionResult UpdateSpot(TouristSpot UpdateSpot2, IFormFile file)
         {
             if (file != null && file.Length > 0)
             {
@@ -147,14 +149,31 @@ namespace Karnel_Travels.Controllers
         }
         // Travel Insertion
         [HttpPost]
-        public IActionResult Travel(Travel catg)
+        public IActionResult Travel(Travel Travel1, IFormFile TravelImage)
         {
-            if (ModelState.IsValid)
+
+            if (TravelImage != null && TravelImage.Length > 0)
             {
-                db.Add(catg);
-                db.SaveChanges();
-                TempData["Message"] = "Record Inserted Successfully";
-                return RedirectToAction(nameof(FetchTravel));
+                var filename = Path.GetFileName(TravelImage.FileName);
+                string folderPath = Path.Combine("wwwroot/assets/img/Travel", filename);
+                var dbpath = Path.Combine("assets/img/Travel", filename);
+                using (var stream = new FileStream(folderPath, FileMode.Create))
+                {
+                    TravelImage.CopyTo(stream);
+                }
+                Travel1.TravelImage = dbpath;
+
+                if (ModelState.IsValid) // validation
+                {
+                    db.Add(Travel1);
+                    db.SaveChanges();
+                    TempData["Message"] = "Record Inserted Successfully";
+                    return RedirectToAction(nameof(FetchTravel));
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("TravelImage", "Travel Image field is Required");
             }
             return View();
         }
@@ -187,16 +206,58 @@ namespace Karnel_Travels.Controllers
 
         // Update Travel action method
         [HttpPost]
-        public IActionResult UpdateTravel(Travel UpdateTravel) {
-            if (ModelState.IsValid)
+        public IActionResult UpdateTravel(Travel UpdateTravel, IFormFile file)
+        {
+            if (file != null && file.Length > 0)
             {
+                Guid r = Guid.NewGuid();
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                var extensionn = file.ContentType.ToLower();
+                var exten_presize = extensionn.Substring(6);
+
+                var unique_name = fileName + r + "." + exten_presize;
+                string imagesFolder = Path.Combine(HttpContext.Request.PathBase.Value, "wwwroot/assets/img/Travel");
+                string filePath = Path.Combine(imagesFolder, unique_name);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                var dbPath = Path.Combine("assets/img/Travel", unique_name);
+                UpdateTravel.TravelImage = dbPath;
                 db.Update(UpdateTravel);
-            db.SaveChanges();
-            TempData["UpdateMessage"] = "Record Updated Successfully"; 
+                db.SaveChanges();
+                TempData["UpdateMessage"] = "Record Updated Successfully";
                 return RedirectToAction(nameof(FetchTravel));
             }
-            return View();
+            else
+            {
+                var existingTravel = db.Travels.FirstOrDefault(p => p.TravelId == UpdateTravel.TravelId);
+                if (existingTravel != null)
+                {
+                    UpdateTravel.TravelImage = existingTravel.TravelImage;
+
+                    // Detach existing tracked entity
+                    db.Entry(existingTravel).State = EntityState.Detached;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Product not found";
+                    return RedirectToAction(nameof(FetchTravel));
+                }
+            }
+
+            // Update entity state
+            db.Update(UpdateTravel);
+            db.SaveChanges();
+
+            TempData["UpdateMessage"] = file != null ? "Record Updated Successfully" : "Record Updated Successfully with Previous Image";
+            return RedirectToAction(nameof(FetchTravel));
         }
+
+
+
+
+
 
         // Hotel Form
         public IActionResult Hotel()

@@ -3,35 +3,42 @@
     Layout = "_AdminLayout";
 }
 
-    <div class="main_content_iner ">
-        <div class="container-fluid plr_30 body_white_bg pt_30">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="white_box mb_30">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6">
 
-                                <div class="modal-content cs_modal">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Add Travel Mode</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                    <form method="post">
+<div class="main_content_iner ">
+    <div class="container-fluid plr_30 body_white_bg pt_30">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_box mb_30">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+
+                            <div class="modal-content cs_modal">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Travel</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" enctype="multipart/form-data">
                                         @Html.AntiForgeryToken()
-                                            <div>
-                                            <input type="text" class="form-control" asp-for="TravelMode" placeholder="Enter Travel Mode">
+                                        <div>
+                                            `
+                                            <input type="text" class="form-control" asp-for="TravelMode"
+                                                   placeholder="Enter Travel Mode">
                                             <span asp-validation-for="TravelMode" class="text-danger"></span>
                                         </div>
-                                            <div>
-                                            <input class="form-control" type="text" asp-for="TravelDescription" placeholder="Enter Travel Description">
+                                        <div>
+                                            <input type="file" class="form-control pt-0" asp-for="TravelImage"
+                                                   placeholder="Enter Travel Image">
+                                            <span asp-validation-for="TravelImage" class="text-danger"></span>
+                                        </div>
+                                        <div>
+                                            <input type="text" class="form-control" asp-for="TravelDescription" placeholder="Enter Travel Description">
                                             <span asp-validation-for="TravelDescription" class="text-danger"></span>
                                         </div>
                                         <div>
-                                            <input type="text" class="form-control" asp-for="TravelPrice" placeholder="Enter Travel Price">
+                                            <input type="number" class="form-control" asp-for="TravelPrice" placeholder="Enter Travel Price">
                                         </div>
                                         <button type="submit" class="btn_1 full_width text-center">Submit</button>
                                     </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -40,4 +47,4 @@
             </div>
         </div>
     </div>
-
+</div>
