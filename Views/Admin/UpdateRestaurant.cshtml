@@ -14,10 +14,10 @@
 
                             <div class="modal-content cs_modal">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Update Restuarant</h5>
+                                    <h5 class="modal-title">Add Restaurant</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form enctype="multipart/form-data" asp-controller="Admin" asp-action="UpdateRestaurant2">
+                                    <form enctype="multipart/form-data" method="post">
                                         @Html.AntiForgeryToken()
                                         <div class="form-group mb-3">
                                             <input type="hidden" asp-for="RestaurantId" class="form-control" />
@@ -26,17 +26,17 @@
                                             <input type="text" class="form-control" asp-for="RestaurantName" placeholder="Enter Restaurant Name">
                                         </div>
                                         <div>
-                                            <input class="form-control pt-0" type="file" name="file">
-                                            <img src="~/@Model.RestaurantImage" width="60" height="60">
+                                            <input type="text" class="form-control" asp-for="RestaurantMenu" placeholder="Enter Restaurant Menu">
                                         </div>
                                         <div>
-                                            <input type="text" class="form-control" asp-for="RestaurantMenu" placeholder="Enter Restaurant Menu">
+                                            <input class="form-control pt-0" type="file" name="file">
+                                            <img src="~/@Model.RestaurantImage" width="60" height="60">
                                         </div>
                                         <div>
                                             <input type="text" class="form-control" asp-for="RestaurantDescription" placeholder="Enter Restaurant Description">
                                         </div>
                                         <div>
-                                            <input type="text" class="form-control" asp-for="RestaurantPrice" placeholder="Enter Restuarant Price">
+                                            <input type="text" class="form-control" asp-for="RestaurantPrice" placeholder="Enter Restaurant Price">
                                         </div>
                                         <div>
                                             <input type="text" class="form-control" asp-for="RestaurantLocation" placeholder="Enter Restaurant Location">
@@ -52,4 +52,3 @@
         </div>
     </div>
 </div>
-

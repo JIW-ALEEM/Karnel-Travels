@@ -3,43 +3,52 @@
     Layout = "_AdminLayout";
 }
 
-    <div class="main_content_iner ">
-        <div class="container-fluid plr_30 body_white_bg pt_30">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="white_box mb_30">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6">
 
-                                <div class="modal-content cs_modal">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Add Restaurant</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                    <form enctype="multipart/form-data" asp-controller="Admin" asp-action="AddRestaurant">
+<div class="main_content_iner ">
+    <div class="container-fluid plr_30 body_white_bg pt_30">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_box mb_30">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+
+                            <div class="modal-content cs_modal">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Restaurant</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" enctype="multipart/form-data">
                                         @Html.AntiForgeryToken()
-                                            <div>
-                                             <input type="text" class="form-control" asp-for="RestaurantName" placeholder="Enter Restaurant Name">
-                                            </div>
-                                            <div>
-                                            <input class="form-control pt-0" type="file" asp-for="RestaurantImage" placeholder="Enter Restaurant Image">
-                                            </div>
                                         <div>
-                                            <input type="text" class="form-control" asp-for="RestaurantMenu" placeholder="Enter Restaurant Menu">
+
+                                            <input type="text" class="form-control" asp-for="RestaurantName"
+                                                   placeholder="Enter Restaurant Name">
+                                            <span asp-validation-for="RestaurantName" class="text-danger"></span>
+                                        </div>
+                                        <div>
+
+                                            <input type="text" class="form-control" asp-for="RestaurantMenu"
+                                                   placeholder="Enter Restaurant Menu">
+                                            <span asp-validation-for="RestaurantMenu" class="text-danger"></span>
+                                        </div>
+                                        <div>
+                                            <input type="file" class="form-control pt-0" asp-for="RestaurantImage"
+                                                   placeholder="Enter Restaurant Image">
+                                            <span asp-validation-for="RestaurantImage" class="text-danger"></span>
                                         </div>
                                         <div>
                                             <input type="text" class="form-control" asp-for="RestaurantDescription" placeholder="Enter Restaurant Description">
+                                            <span asp-validation-for="RestaurantDescription" class="text-danger"></span>
                                         </div>
                                         <div>
-                                            <input type="text" class="form-control" asp-for="RestaurantPrice" placeholder="Enter Restuarant Price">
-                                        </div>
-                                            <div>
                                             <input type="text" class="form-control" asp-for="RestaurantLocation" placeholder="Enter Restaurant Location">
-                                            </div>
+                                            <span asp-validation-for="RestaurantLocation" class="text-danger"></span>
+                                        </div>
+                                        <div>
+                                            <input type="number" class="form-control" asp-for="RestaurantPrice" placeholder="Enter Restaurant Price">
+                                        </div>
                                         <button type="submit" class="btn_1 full_width text-center">Submit</button>
-
-                                        </form>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -48,3 +57,4 @@
             </div>
         </div>
     </div>
+</div>

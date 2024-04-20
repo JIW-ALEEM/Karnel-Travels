@@ -379,14 +379,17 @@ namespace Karnel_Travels.Controllers
 
 
         // Restaurant Form
+        [HttpGet]
         public IActionResult Restaurant()
         {
             return View();
         }
 
         // Image Insertion in Restaurant
-        public IActionResult AddRestaurant(Restaurant Restaurant1, IFormFile RestaurantImage)
+        [HttpPost]
+        public IActionResult Restaurant(Restaurant Restaurant1, IFormFile RestaurantImage)
         {
+
             if (RestaurantImage != null && RestaurantImage.Length > 0)
             {
                 var filename = Path.GetFileName(RestaurantImage.FileName);
@@ -397,10 +400,18 @@ namespace Karnel_Travels.Controllers
                     RestaurantImage.CopyTo(stream);
                 }
                 Restaurant1.RestaurantImage = dbpath;
-                db.Add(Restaurant1);
-                db.SaveChanges();
-                TempData["Message"] = "Record Inserted Successfully";
-                return RedirectToAction(nameof(FetchRestaurant));
+
+                if (ModelState.IsValid) // validation
+                {
+                    db.Add(Restaurant1);
+                    db.SaveChanges();
+                    TempData["Message"] = "Record Inserted Successfully";
+                    return RedirectToAction(nameof(FetchRestaurant));
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("RestaurantImage", "Restaurant Image field is Required");
             }
             return View();
         }
@@ -408,12 +419,10 @@ namespace Karnel_Travels.Controllers
         // Fetch Restaurant
         public IActionResult FetchRestaurant()
         {
-
             return View(db.Restaurants.ToList());
         }
 
         // Delete Restaurant 
-
         public IActionResult DeleteRestaurant(int? id)
         {
             var data = db.Restaurants.FirstOrDefault(x => x.RestaurantId == id);
@@ -424,6 +433,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Restaurant view
+        [HttpGet]
         public IActionResult UpdateRestaurant(int? id)
         {
             var data = db.Restaurants.FirstOrDefault(x => x.RestaurantId == id);
@@ -431,7 +441,8 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Restaurant action method
-        public IActionResult UpdateRestaurant2(Restaurant UpdateRestaurant2, IFormFile file)
+        [HttpPost]
+        public IActionResult UpdateRestaurant(Restaurant UpdateRestaurant, IFormFile file)
         {
             if (file != null && file.Length > 0)
             {
@@ -448,18 +459,18 @@ namespace Karnel_Travels.Controllers
                     file.CopyTo(stream);
                 }
                 var dbPath = Path.Combine("assets/img/Restaurant", unique_name);
-                UpdateRestaurant2.RestaurantImage = dbPath;
-                db.Update(UpdateRestaurant2);
+                UpdateRestaurant.RestaurantImage = dbPath;
+                db.Update(UpdateRestaurant);
                 db.SaveChanges();
                 TempData["UpdateMessage"] = "Record Updated Successfully";
                 return RedirectToAction(nameof(FetchRestaurant));
             }
             else
             {
-                var existingRestaurant = db.Restaurants.FirstOrDefault(p => p.RestaurantId == UpdateRestaurant2.RestaurantId);
+                var existingRestaurant = db.Restaurants.FirstOrDefault(p => p.RestaurantId == UpdateRestaurant.RestaurantId);
                 if (existingRestaurant != null)
                 {
-                    UpdateRestaurant2.RestaurantImage = existingRestaurant.RestaurantImage;
+                    UpdateRestaurant.RestaurantImage = existingRestaurant.RestaurantImage;
 
                     // Detach existing tracked entity
                     db.Entry(existingRestaurant).State = EntityState.Detached;
@@ -472,7 +483,7 @@ namespace Karnel_Travels.Controllers
             }
 
             // Update entity state
-            db.Update(UpdateRestaurant2);
+            db.Update(UpdateRestaurant);
             db.SaveChanges();
 
             TempData["UpdateMessage"] = file != null ? "Record Updated Successfully" : "Record Updated Successfully with Previous Image";
