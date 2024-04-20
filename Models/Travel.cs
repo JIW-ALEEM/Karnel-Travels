@@ -10,7 +10,7 @@ public partial class Travel
     [Required]
     public string TravelMode { get; set; } = null!;
 
-    public string TravelImage { get; set; } = null!;
+    public string? TravelImage { get; set; }
     [Required]
     public long TravelPrice { get; set; }
     [Required]

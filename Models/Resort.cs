@@ -10,7 +10,7 @@ public partial class Resort
     [Required]
     public string ResortName { get; set; } = null!;
 
-    public string ResortImage { get; set; } = null!;
+    public string? ResortImage { get; set; }
     [Required]
     public long ResortPrice { get; set; }
     [Required]

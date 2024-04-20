@@ -10,7 +10,7 @@ public partial class Package
     [Required]
     public string PackageName { get; set; } = null!;
 
-    public string PackageImage { get; set; } = null!;
+    public string? PackageImage { get; set; }
     [Required]
     public string PackagePerson { get; set; } = null!;
     [Required]
