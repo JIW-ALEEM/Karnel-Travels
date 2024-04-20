@@ -147,7 +147,7 @@ namespace Karnel_Travels.Controllers
         {
             return View();
         }
-        // Travel Insertion
+        // Travel Image Insertion
         [HttpPost]
         public IActionResult Travel(Travel Travel1, IFormFile TravelImage)
         {
@@ -260,14 +260,17 @@ namespace Karnel_Travels.Controllers
 
 
         // Hotel Form
+        [HttpGet]
         public IActionResult Hotel()
         {
             return View();
         }
 
         // Image Insertion in Hotel
-        public IActionResult AddHotel(Hotel Hotel1, IFormFile HotelImage)
+        [HttpPost]
+        public IActionResult Hotel(Hotel Hotel1, IFormFile HotelImage)
         {
+
             if (HotelImage != null && HotelImage.Length > 0)
             {
                 var filename = Path.GetFileName(HotelImage.FileName);
@@ -278,10 +281,18 @@ namespace Karnel_Travels.Controllers
                     HotelImage.CopyTo(stream);
                 }
                 Hotel1.HotelImage = dbpath;
-                db.Add(Hotel1);
-                db.SaveChanges();
-                TempData["Message"] = "Record Inserted Successfully";
-                return RedirectToAction(nameof(FetchHotel));
+
+                if (ModelState.IsValid) // validation
+                {
+                    db.Add(Hotel1);
+                    db.SaveChanges();
+                    TempData["Message"] = "Record Inserted Successfully";
+                    return RedirectToAction(nameof(FetchHotel));
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("HotelImage", "Hotel Image field is Required");
             }
             return View();
         }
@@ -294,7 +305,6 @@ namespace Karnel_Travels.Controllers
         }
 
         // Delete Hotel 
-
         public IActionResult DeleteHotel(int? id)
         {
             var data = db.Hotels.FirstOrDefault(x => x.HotelId == id);
@@ -305,6 +315,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Hotel view
+        [HttpGet]
         public IActionResult UpdateHotel(int? id)
         {
             var data = db.Hotels.FirstOrDefault(x => x.HotelId == id);
@@ -312,7 +323,8 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Hotel action method
-        public IActionResult UpdateHotel2(Hotel UpdateHotel2, IFormFile file)
+        [HttpPost]
+        public IActionResult UpdateHotel(Hotel UpdateHotel, IFormFile file)
         {
             if (file != null && file.Length > 0)
             {
@@ -329,18 +341,18 @@ namespace Karnel_Travels.Controllers
                     file.CopyTo(stream);
                 }
                 var dbPath = Path.Combine("assets/img/Hotel", unique_name);
-                UpdateHotel2.HotelImage = dbPath;
-                db.Update(UpdateHotel2);
+                UpdateHotel.HotelImage = dbPath;
+                db.Update(UpdateHotel);
                 db.SaveChanges();
                 TempData["UpdateMessage"] = "Record Updated Successfully";
                 return RedirectToAction(nameof(FetchHotel));
             }
             else
             {
-                var existingHotel = db.Hotels.FirstOrDefault(p => p.HotelId == UpdateHotel2.HotelId);
+                var existingHotel = db.Hotels.FirstOrDefault(p => p.HotelId == UpdateHotel.HotelId);
                 if (existingHotel != null)
                 {
-                    UpdateHotel2.HotelImage = existingHotel.HotelImage;
+                    UpdateHotel.HotelImage = existingHotel.HotelImage;
 
                     // Detach existing tracked entity
                     db.Entry(existingHotel).State = EntityState.Detached;
@@ -353,7 +365,7 @@ namespace Karnel_Travels.Controllers
             }
 
             // Update entity state
-            db.Update(UpdateHotel2);
+            db.Update(UpdateHotel);
             db.SaveChanges();
 
             TempData["UpdateMessage"] = file != null ? "Record Updated Successfully" : "Record Updated Successfully with Previous Image";

@@ -14,16 +14,19 @@
 
                             <div class="modal-content cs_modal">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Update Hotel</h5>
+                                    <h5 class="modal-title">Add Hotel</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form enctype="multipart/form-data" asp-controller="Admin" asp-action="UpdateHotel2">
+                                    <form enctype="multipart/form-data" method="post">
                                         @Html.AntiForgeryToken()
                                         <div class="form-group mb-3">
                                             <input type="hidden" asp-for="HotelId" class="form-control" />
                                         </div>
                                         <div>
                                             <input type="text" class="form-control" asp-for="HotelName" placeholder="Enter Hotel Name">
+                                        </div>
+                                        <div>
+                                            <input type="text" class="form-control" asp-for="HotelRooms" placeholder="Enter Hotel Rooms">
                                         </div>
                                         <div>
                                             <input class="form-control pt-0" type="file" name="file">
@@ -49,4 +52,3 @@
         </div>
     </div>
 </div>
-
