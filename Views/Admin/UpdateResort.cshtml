@@ -14,10 +14,10 @@
 
                             <div class="modal-content cs_modal">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Update Resort</h5>
+                                    <h5 class="modal-title">Add Resort</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form enctype="multipart/form-data" asp-controller="Admin" asp-action="UpdateResort2">
+                                    <form enctype="multipart/form-data" method="post">
                                         @Html.AntiForgeryToken()
                                         <div class="form-group mb-3">
                                             <input type="hidden" asp-for="ResortId" class="form-control" />
@@ -33,10 +33,10 @@
                                             <input type="text" class="form-control" asp-for="ResortDescription" placeholder="Enter Resort Description">
                                         </div>
                                         <div>
-                                            <input type="text" class="form-control" asp-for="ResortLocation" placeholder="Enter Resort Location">
+                                            <input type="text" class="form-control" asp-for="ResortPrice" placeholder="Enter Resort Price">
                                         </div>
                                         <div>
-                                            <input type="text" class="form-control" asp-for="ResortPrice" placeholder="Enter Resort Price">
+                                            <input type="text" class="form-control" asp-for="ResortLocation" placeholder="Enter Resort Location">
                                         </div>
                                         <button type="submit" class="btn_1 full_width text-center">Submit</button>
                                     </form>
@@ -49,4 +49,3 @@
         </div>
     </div>
 </div>
-

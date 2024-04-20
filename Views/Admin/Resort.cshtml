@@ -3,40 +3,46 @@
     Layout = "_AdminLayout";
 }
 
-    <div class="main_content_iner ">
-        <div class="container-fluid plr_30 body_white_bg pt_30">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="white_box mb_30">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6">
 
-                                <div class="modal-content cs_modal">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Add Resort</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                    <form enctype="multipart/form-data" asp-controller="Admin" asp-action="AddResort">
+<div class="main_content_iner ">
+    <div class="container-fluid plr_30 body_white_bg pt_30">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_box mb_30">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+
+                            <div class="modal-content cs_modal">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Resort</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" enctype="multipart/form-data">
                                         @Html.AntiForgeryToken()
                                         <div>
-                                                <input type="text" class="form-control" asp-for="ResortName" placeholder="Enter Resort Name">
-                                            </div>
-                                            <div>
-                                            <input class="form-control pt-0" type="file" asp-for="ResortImage" placeholder=" Enter Resort Image">
-                                            </div>
-                                            <div>
-                                                <input type="text" class="form-control" asp-for="ResortDescription" placeholder="Enter Resort Description">
-                                            </div>
-                                        <div>
-                                            <input type="text" class="form-control" asp-for="ResortPrice" placeholder="Enter Resort Price">
-                                        </div>
-                                            <div>
-                                                <input type="text" class="form-control" asp-for="ResortLocation" placeholder="Enter Resort Location">
-                                            </div>
-                                        <button type="submit" class="btn_1 full_width text-center">Submit</button>
 
+                                            <input type="text" class="form-control" asp-for="ResortName"
+                                                   placeholder="Enter Resort Name">
+                                            <span asp-validation-for="ResortName" class="text-danger"></span>
+                                        </div>
+                                        <div>
+                                            <input type="file" class="form-control pt-0" asp-for="ResortImage"
+                                                   placeholder="Enter Resort Image">
+                                            <span asp-validation-for="ResortImage" class="text-danger"></span>
+                                        </div>
+                                        <div>
+                                            <input type="text" class="form-control" asp-for="ResortDescription" placeholder="Enter Resort Description">
+                                            <span asp-validation-for="ResortDescription" class="text-danger"></span>
+                                        </div>
+                                        <div>
+                                            <input type="text" class="form-control" asp-for="ResortLocation" placeholder="Enter Resort Location">
+                                            <span asp-validation-for="ResortLocation" class="text-danger"></span>
+                                        </div>
+                                        <div>
+                                            <input type="number" class="form-control" asp-for="ResortPrice" placeholder="Enter Resort Price">
+                                        </div>
+                                        <button type="submit" class="btn_1 full_width text-center">Submit</button>
                                     </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -45,3 +51,4 @@
             </div>
         </div>
     </div>
+</div>

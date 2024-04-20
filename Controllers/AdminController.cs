@@ -496,14 +496,17 @@ namespace Karnel_Travels.Controllers
 
 
         // Resort Form
+        [HttpGet]
         public IActionResult Resort()
         {
             return View();
         }
 
         // Image Insertion in Resort
-        public IActionResult AddResort(Resort Resort1, IFormFile ResortImage)
+        [HttpPost]
+        public IActionResult Resort(Resort Resort1, IFormFile ResortImage)
         {
+
             if (ResortImage != null && ResortImage.Length > 0)
             {
                 var filename = Path.GetFileName(ResortImage.FileName);
@@ -514,10 +517,18 @@ namespace Karnel_Travels.Controllers
                     ResortImage.CopyTo(stream);
                 }
                 Resort1.ResortImage = dbpath;
-                db.Add(Resort1);
-                db.SaveChanges();
-                TempData["Message"] = "Record Inserted Successfully";
-                return RedirectToAction(nameof(FetchResort));
+
+                if (ModelState.IsValid) // validation
+                {
+                    db.Add(Resort1);
+                    db.SaveChanges();
+                    TempData["Message"] = "Record Inserted Successfully";
+                    return RedirectToAction(nameof(FetchResort));
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("ResortImage", "Resort Image field is Required");
             }
             return View();
         }
@@ -530,7 +541,6 @@ namespace Karnel_Travels.Controllers
         }
 
         // Delete Resort 
-
         public IActionResult DeleteResort(int? id)
         {
             var data = db.Resorts.FirstOrDefault(x => x.ResortId == id);
@@ -541,6 +551,7 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Resort view
+        [HttpGet]
         public IActionResult UpdateResort(int? id)
         {
             var data = db.Resorts.FirstOrDefault(x => x.ResortId == id);
@@ -548,7 +559,8 @@ namespace Karnel_Travels.Controllers
         }
 
         // Update Resort action method
-        public IActionResult UpdateResort2(Resort UpdateResort2, IFormFile file)
+        [HttpPost]
+        public IActionResult UpdateResort(Resort UpdateResort, IFormFile file)
         {
             if (file != null && file.Length > 0)
             {
@@ -565,21 +577,21 @@ namespace Karnel_Travels.Controllers
                     file.CopyTo(stream);
                 }
                 var dbPath = Path.Combine("assets/img/Resort", unique_name);
-                UpdateResort2.ResortImage = dbPath;
-                db.Update(UpdateResort2);
+                UpdateResort.ResortImage = dbPath;
+                db.Update(UpdateResort);
                 db.SaveChanges();
                 TempData["UpdateMessage"] = "Record Updated Successfully";
                 return RedirectToAction(nameof(FetchResort));
             }
             else
             {
-                var existingRestaurant = db.Resorts.FirstOrDefault(p => p.ResortId == UpdateResort2.ResortId);
-                if (existingRestaurant != null)
+                var existingResort = db.Resorts.FirstOrDefault(p => p.ResortId == UpdateResort.ResortId);
+                if (existingResort != null)
                 {
-                    UpdateResort2.ResortImage = existingRestaurant.ResortImage;
+                    UpdateResort.ResortImage = existingResort.ResortImage;
 
                     // Detach existing tracked entity
-                    db.Entry(existingRestaurant).State = EntityState.Detached;
+                    db.Entry(existingResort).State = EntityState.Detached;
                 }
                 else
                 {
@@ -589,7 +601,7 @@ namespace Karnel_Travels.Controllers
             }
 
             // Update entity state
-            db.Update(UpdateResort2);
+            db.Update(UpdateResort);
             db.SaveChanges();
 
             TempData["UpdateMessage"] = file != null ? "Record Updated Successfully" : "Record Updated Successfully with Previous Image";
@@ -611,6 +623,7 @@ namespace Karnel_Travels.Controllers
             ViewBag.Hotel = new SelectList(db.Hotels, "HotelId", "HotelName");
             return View();
         }
+
         public IActionResult AddPackage(Package pack, IFormFile PackageImage)
         {
             if (PackageImage != null && PackageImage.Length > 0)
@@ -630,6 +643,7 @@ namespace Karnel_Travels.Controllers
             }
             return View();
         }
+   
         public IActionResult FetchPackage()
         {
             return View(db.Packages
