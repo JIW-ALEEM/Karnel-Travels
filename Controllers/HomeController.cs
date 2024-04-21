@@ -98,6 +98,7 @@ namespace Karnel_Travels.Controllers
         // Index Action Method
         public IActionResult Index()
         {
+            //var p = _db.Packages.ToList();
             return View();
         }
 
@@ -165,63 +166,6 @@ namespace Karnel_Travels.Controllers
             return View();
         }
 
-        public IActionResult Package()
-        {
-            var packages = _db.Packages.ToList();
-            return View(packages);
-        }
-
-        [HttpGet]
-        public IActionResult FetchPackage(string searchText)
-        {
-            var packages = string.IsNullOrEmpty(searchText) ?
-                           _db.Packages.ToList() :
-                           _db.Packages.Where(p => p.PackageName.Contains(searchText)).ToList();
-
-            return PartialView("_PackageCards", packages);
-        }
-
-        [HttpGet]
-        public IActionResult Details(string table, int id)
-        {
-            switch (table.ToLower())
-            {
-                case "hotel":
-                    var hotel = _db.Hotels.Find(id);
-                    if (hotel == null) return NotFound();
-                    return View("HotelDetails", hotel);
-                case "travel":
-                    var travel = _db.Travels.Find(id);
-                    if (travel == null) return NotFound();
-                    return View("TravelDetails", travel);
-                case "resort":
-                    var resort = _db.Resorts.Find(id);
-                    if (resort == null) return NotFound();
-                    return View("ResortDetails", resort);
-                case "restaurant":
-                    var restaurant = _db.Restaurants.Find(id);
-                    if (restaurant == null) return NotFound();
-                    return View("RestaurantDetails", restaurant);
-                case "touristspot":
-                    var touristSpot = _db.TouristSpots.Find(id);
-                    if (touristSpot == null) return NotFound();
-                    return View("TouristSpotDetails", touristSpot);
-                case "package":
-                    var package = _db.Packages.Include(p => p.PackageHotel)
-                                              .Include(p => p.PackageTravel)
-                                              .Include(p => p.PackageResort)
-                                              .Include(p => p.PackageRestaurant)
-                                              .Include(p => p.PackageTouristSpot)
-                                              .FirstOrDefault(p => p.PackageId == id);
-
-                    if (package == null) return NotFound();
-                    return View("PackageDetails", package);
-                default:
-                    return NotFound();
-            }
-        }
-    }
-
 
         public IActionResult Restaurant()
         {
@@ -240,63 +184,6 @@ namespace Karnel_Travels.Controllers
             return View();
         }
 
-        public IActionResult Package()
-        {
-            var packages = _db.Packages.ToList();
-            return View(packages);
-        }
-
-        [HttpGet]
-        public IActionResult FetchPackage(string searchText)
-        {
-            var packages = string.IsNullOrEmpty(searchText) ?
-                           _db.Packages.ToList() :
-                           _db.Packages.Where(p => p.PackageName.Contains(searchText)).ToList();
-
-            return PartialView("_PackageCards", packages);
-        }
-
-        [HttpGet]
-        public IActionResult Details(string table, int id)
-        {
-            switch (table.ToLower())
-            {
-                case "hotel":
-                    var hotel = _db.Hotels.Find(id);
-                    if (hotel == null) return NotFound();
-                    return View("HotelDetails", hotel);
-                case "travel":
-                    var travel = _db.Travels.Find(id);
-                    if (travel == null) return NotFound();
-                    return View("TravelDetails", travel);
-                case "resort":
-                    var resort = _db.Resorts.Find(id);
-                    if (resort == null) return NotFound();
-                    return View("ResortDetails", resort);
-                case "restaurant":
-                    var restaurant = _db.Restaurants.Find(id);
-                    if (restaurant == null) return NotFound();
-                    return View("RestaurantDetails", restaurant);
-                case "touristspot":
-                    var touristSpot = _db.TouristSpots.Find(id);
-                    if (touristSpot == null) return NotFound();
-                    return View("TouristSpotDetails", touristSpot);
-                case "package":
-                    var package = _db.Packages.Include(p => p.PackageHotel)
-                                              .Include(p => p.PackageTravel)
-                                              .Include(p => p.PackageResort)
-                                              .Include(p => p.PackageRestaurant)
-                                              .Include(p => p.PackageTouristSpot)
-                                              .FirstOrDefault(p => p.PackageId == id);
-
-                    if (package == null) return NotFound();
-                    return View("PackageDetails", package);
-                default:
-                    return NotFound();
-            }
-        }
-    }
-
 
 
         public IActionResult Resorts()
@@ -312,7 +199,7 @@ namespace Karnel_Travels.Controllers
             var Resorts = string.IsNullOrEmpty(searchText) ? _db.Resorts.ToList() : _db.Resorts.Where(h => h.ResortName.Contains(searchText)).ToList();
 
             // Return partial view with hotel cards
-            return PartialView("_ResortsCards", Resorts);
+            return PartialView("_ResortCards", Resorts);
             return View();
         }
 
@@ -325,53 +212,68 @@ namespace Karnel_Travels.Controllers
         [HttpGet]
         public IActionResult FetchPackage(string searchText)
         {
-            var packages = string.IsNullOrEmpty(searchText) ?
-                           _db.Packages.ToList() :
-                           _db.Packages.Where(p => p.PackageName.Contains(searchText)).ToList();
+            // Fetch all hotels if search text is empty or null
+            var packagesa = string.IsNullOrEmpty(searchText) ? _db.Packages.ToList():_db.Packages.Where(h => h.PackageName.Contains(searchText)).ToList();
 
-            return PartialView("_PackageCards", packages);
+            // Return partial view with hotel cards
+            return PartialView("_PackageCards", packagesa);
+           
         }
 
         [HttpGet]
-        public IActionResult Details(string table, int id)
-        {
-            switch (table.ToLower())
+public IActionResult Details(string table, int id)
+{
+    switch(table.ToLower())
+    {
+        case "hotel":
+            var hotel = _db.Hotels.Find(id);
+            if (hotel == null)
             {
-                case "hotel":
-                    var hotel = _db.Hotels.Find(id);
-                    if (hotel == null) return NotFound();
-                    return View("HotelDetails", hotel);
-                case "travel":
-                    var travel = _db.Travels.Find(id);
-                    if (travel == null) return NotFound();
-                    return View("TravelDetails", travel);
-                case "resort":
-                    var resort = _db.Resorts.Find(id);
-                    if (resort == null) return NotFound();
-                    return View("ResortDetails", resort);
-                case "restaurant":
-                    var restaurant = _db.Restaurants.Find(id);
-                    if (restaurant == null) return NotFound();
-                    return View("RestaurantDetails", restaurant);
-                case "touristspot":
-                    var touristSpot = _db.TouristSpots.Find(id);
-                    if (touristSpot == null) return NotFound();
-                    return View("TouristSpotDetails", touristSpot);
-                case "package":
-                    var package = _db.Packages.Include(p => p.PackageHotel)
-                                              .Include(p => p.PackageTravel)
-                                              .Include(p => p.PackageResort)
-                                              .Include(p => p.PackageRestaurant)
-                                              .Include(p => p.PackageTouristSpot)
-                                              .FirstOrDefault(p => p.PackageId == id);
-
-                    if (package == null) return NotFound();
-                    return View("PackageDetails", package);
-                default:
-                    return NotFound();
+                return NotFound();
             }
-        }
+            return View("HotelDetails", hotel);
+
+
+
+                case "travel":
+            var travel = _db.Travels.Find(id);
+            if (travel == null)
+            {
+                return NotFound();
+            }
+            return View("TravelDetails", travel);
+            
+        case "resort":
+            var resort = _db.Resorts.Find(id);
+            if (resort == null)
+            {
+                return NotFound();
+            }
+            return View("ResortDetails", resort);
+            
+        case "restaurant":
+            var restaurant = _db.Restaurants.Find(id);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+            return View("RestaurantDetails", restaurant);
+            
+        case "toresport":
+            var toresport = _db.TouristSpots.Find(id);
+            if (toresport == null)
+            {
+                return NotFound();
+            }
+            return View("TouristSpotDetails", toresport);
+            
+        default:
+            return NotFound();
     }
+}
+
+        
+
 
 
         public IActionResult Contact()

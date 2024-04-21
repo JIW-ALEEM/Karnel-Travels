@@ -15,7 +15,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                }
                );
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,9 +32,16 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Routing Configuration for Details
+app.MapControllerRoute(
+    name: "details",
+    pattern: "{table}/Details/{id}",
+    defaults: new { controller = "Home", action = "Details" });
+
+// Default Route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-

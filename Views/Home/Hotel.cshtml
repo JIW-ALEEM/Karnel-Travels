@@ -83,11 +83,11 @@
             }
         });
 
-        // Attach a submit event handler to the search form
-        $('#searchForm').submit(function (event) {
-            event.preventDefault(); // Prevent form submission
-            var searchText = $('#searchInput').val(); // Get the search text
-            fetchHotels(searchText); // Fetch hotels based on search text
+        // Attach click event handler to the hotel cards
+        $('#hotelContainer').on('click', '.project-wrap.hotel', function () {
+            var table = $(this).data('table'); // Fetch table name from data-table attribute
+            var id = $(this).data('id'); // Fetch ID from data-id attribute
+            window.location.href = '/' + table + '/Details/' + id; // Navigate to correct details page
         });
     });
 
@@ -98,7 +98,6 @@
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {
-             
                 $('#hotelContainer').html(result); // Update the HTML container with the fetched hotel cards
             },
             error: function (xhr, status, error) {

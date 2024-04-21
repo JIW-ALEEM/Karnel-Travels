@@ -1,12 +1,12 @@
-﻿@model IEnumerable<Karnel_Travels.Models.Travel>
+﻿@model IEnumerable<Karnel_Travels.Models.Package>
 
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../images/bg_1.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
             <div class="col-md-9 ftco-animate pb-5 text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Travel <i class="fa fa-chevron-right"></i></span></p>
-                <h1 class="mb-0 bread">Travel</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Packages <i class="fa fa-chevron-right"></i></span></p>
+                <h1 class="mb-0 bread">Hotel</h1>
             </div>
         </div>
     </div>
@@ -21,10 +21,10 @@
                         <div class="row no-gutters">
                             <div class="col-lg d-flex">
                                 <div class="form-group p-4 border-0">
-                                    <label for="#">Travel</label>
+                                    <label for="#">Packages</label>
                                     <div class="form-field">
                                         <div class="icon"><span class="fa fa-search"></span></div>
-                                        <input id="searchInput" type="text" class="form-control" placeholder="Search Travel">
+                                        <input id="searchInput" type="text" class="form-control" placeholder="Search Package">
                                     </div>
                                 </div>
                             </div>
@@ -46,8 +46,8 @@
 
 <section class="ftco-section">
     <div class="container">
-        <div id="TravelContainer" class="row">
-            @Html.Partial("_TravelCards", Model)
+        <div id="packageContainer" class="row">
+            @Html.Partial("_PackageCards", Model)
         </div>
     </div>
 </section>
@@ -67,47 +67,37 @@
     </div>
 </section>
 
-
 <script>
     $(document).ready(function () {
-        // Fetch all records initially
-        fetchTravel('');
+        fetchPackage('');
 
-        // Attach keyup event handler to the search input
         $('#searchInput').keyup(function () {
-            var searchText = $(this).val(); // Get the search text
+            var searchText = $(this).val();
             if (searchText.trim() === '') {
-                fetchTravel(); // Fetch all hotels if search text is empty
+                fetchPackage();
             } else {
-                fetchTravel(searchText); // Fetch hotels based on search text
+                fetchPackage(searchText);
             }
         });
 
-        // Attach a submit event handler to the search form
-        $('#searchForm').submit(function (event) {
-            event.preventDefault(); // Prevent form submission
-            var searchText = $('#searchInput').val(); // Get the search text
-            fetchTravel(searchText); 
-   
+        $('#packageContainer').on('click', '.project-wrap', function () {
+            var table = $(this).data('table');
+            var id = $(this).data('id');
+            window.location.href = '/' + table + '/Details/' + id;
         });
     });
 
-    // Function to fetch hotels via AJAX
-    function fetchTravel(searchText = '') {
+    function fetchPackage(searchText = '') {
         $.ajax({
-            url: '/Home/FetchTravel',
+            url: '/Home/FetchPackage',
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {
-           
-                $('#TravelContainer').html(result); // Update the HTML container with the fetched hotel cards
+                $('#packageContainer').html(result);
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
             }
-                
         });
-
     }
 </script>
-

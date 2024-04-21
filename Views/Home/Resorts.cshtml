@@ -46,7 +46,7 @@
 
 <section class="ftco-section">
     <div class="container">
-        <div id="ResortContainer" class="row">
+        <div id="ResortsContainer" class="row">
             @Html.Partial("_ResortCards", Model)
         </div>
     </div>
@@ -67,19 +67,18 @@
     </div>
 </section>
 
-
 <script>
     $(document).ready(function () {
         // Fetch all records initially
-        fetchResors('');
+        fetch('');
 
         // Attach keyup event handler to the search input
         $('#searchInput').keyup(function () {
             var searchText = $(this).val(); // Get the search text
             if (searchText.trim() === '') {
-                fetchResorts(); // Fetch all hotels if search text is empty
+                fetch(); // Fetch all hotels if search text is empty
             } else {
-                fetchResorts(searchText); // Fetch hotels based on search text
+                fetch(searchText); // Fetch hotels based on search text
             }
         });
 
@@ -87,24 +86,27 @@
         $('#searchForm').submit(function (event) {
             event.preventDefault(); // Prevent form submission
             var searchText = $('#searchInput').val(); // Get the search text
-            fetchResorts(searchText); // Fetch hotels based on search text
+            fetch(searchText);
+
         });
     });
 
     // Function to fetch hotels via AJAX
-    function fetchResorts(searchText = '') {
+    function fetch(searchText = '') {
         $.ajax({
             url: '/Home/FetchResorts',
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {
-              
-                $('#ResortContainer').html(result); // Update the HTML container with the fetched hotel cards
+                console.log(result)
+
+                $('#ResortsContainer').html(result); // Update the HTML container with the fetched hotel cards
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
             }
+
         });
+
     }
 </script>
-

@@ -1,16 +1,31 @@
 ﻿@model IEnumerable<Karnel_Travels.Models.Travel>
 
-@foreach (var x in Model)
+
+@foreach (var travel in Model)
 {
     <div class="col-md-4 ">
 
-        <div class="project-wrap hotel">
-                        <div class="text p-4">
-                <span class="price">$@x.TravelPrice/person</span>
-               
-                <h3><a href="#">@x.TravelMode</a></h3>
-                <p class="location"><span class="fa fa-map-marker"></span>@x.TravelDescription</p>
-           
+        <div class="project-wrap Tourist">
+            <a href="#" class="img">
+                <img src="~/@travel.TravelImage" class="img" alt="Tourist Image" />
+                <span class="price">@travel.TravelPrice/person</span>
+            </a>
+            <div class="text p-4">
+                <p class="star mb-2">
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </p>
+                <span class="days">8 Days Tour</span>
+                <h3><a href="#">@travel.TravelMode</a></h3>
+                <p class="location"><span class="fa fa-map-marker"></span>@travel.TravelDescription</p>
+                <ul>
+                    <li><span class="flaticon-shower"></span>2</li>
+                    <li><span class="flaticon-king-size"></span>3</li>
+                    <li><span class="flaticon-mountains"></span></li>
+                </ul>
             </div>
         </div>
     </div>
