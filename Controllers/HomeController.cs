@@ -275,23 +275,78 @@ namespace Karnel_Travels.Controllers
         {
             var data = _db.Feedbacks.FirstOrDefault(x => x.FeedbackId == id);
 
-            // Concatenate SelectList items from different ViewBag items
-            var hotelList = new SelectList(_db.Hotels, "HotelId", "HotelName");
-            var travelList = new SelectList(_db.Travels, "TravelId", "TravelMode");
-            var touristSpotList = new SelectList(_db.TouristSpots, "SpotId", "SpotName");
-            var restaurantList = new SelectList(_db.Restaurants, "RestaurantId", "RestaurantName");
-            var resortList = new SelectList(_db.Resorts, "ResortId", "ResortName");
+            // Initialize SelectList items
+            var selectListItems = new List<SelectListItem>();
 
-            // Merge SelectList items into a single SelectList
-            ViewBag.SelectListItems = new List<SelectListItem>();
-            ViewBag.SelectListItems.AddRange(travelList);
-            ViewBag.SelectListItems.AddRange(hotelList);
-            ViewBag.SelectListItems.AddRange(touristSpotList);
-            ViewBag.SelectListItems.AddRange(restaurantList);
-            ViewBag.SelectListItems.AddRange(resortList);
+            // Check if id is not null and matches any specific category
+            if (id != null)
+            {
+                // Check if id matches a Hotel
+                var hotel = _db.Hotels.FirstOrDefault(x => x.HotelId == id);
+                if (hotel != null)
+                {
+                    selectListItems.Add(new SelectListItem
+                    {
+                        Value = hotel.HotelId.ToString(),
+                        Text = hotel.HotelName,
+                        Selected = true // Mark as selected
+                    });
+                }
 
+                // Check if id matches a Travel mode
+                var travel = _db.Travels.FirstOrDefault(x => x.TravelId == id);
+                if (travel != null)
+                {
+                    selectListItems.Add(new SelectListItem
+                    {
+                        Value = travel.TravelId.ToString(),
+                        Text = travel.TravelMode,
+                        Selected = true // Mark as selected
+                    });
+                }
+
+                // Check if id matches a Tourist Spot
+                var touristSpot = _db.TouristSpots.FirstOrDefault(x => x.SpotId == id);
+                if (touristSpot != null)
+                {
+                    selectListItems.Add(new SelectListItem
+                    {
+                        Value = touristSpot.SpotId.ToString(),
+                        Text = touristSpot.SpotName,
+                        Selected = true // Mark as selected
+                    });
+                }
+
+                // Check if id matches a Restaurant
+                var restaurant = _db.Restaurants.FirstOrDefault(x => x.RestaurantId == id);
+                if (restaurant != null)
+                {
+                    selectListItems.Add(new SelectListItem
+                    {
+                        Value = restaurant.RestaurantId.ToString(),
+                        Text = restaurant.RestaurantName,
+                        Selected = true // Mark as selected
+                    });
+                }
+
+                // Check if id matches a Resort
+                var resort = _db.Resorts.FirstOrDefault(x => x.ResortId == id);
+                if (resort != null)
+                {
+                    selectListItems.Add(new SelectListItem
+                    {
+                        Value = resort.ResortId.ToString(),
+                        Text = resort.ResortName,
+                        Selected = true // Mark as selected
+                    });
+                }
+            }
+
+            // Return the view with data and filtered SelectList
+            ViewBag.SelectListItems = new SelectList(selectListItems, "Value", "Text");
             return View(data);
         }
+
 
 
         public IActionResult Contact()
