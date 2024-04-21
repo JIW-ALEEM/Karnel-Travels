@@ -348,6 +348,13 @@ namespace Karnel_Travels.Controllers
         }
 
 
+        public IActionResult Feedback2(Feedback feed)
+        {
+                    _db.Add(feed);
+                    _db.SaveChanges();
+                    TempData["Message"] = "User Registered Successfully..";
+                    return RedirectToAction(nameof(Index));
+        }
 
         public IActionResult Contact()
         {
