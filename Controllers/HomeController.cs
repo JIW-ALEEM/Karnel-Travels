@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Karnel_Travels.Controllers
 {
@@ -221,7 +223,7 @@ namespace Karnel_Travels.Controllers
         }
 
         [HttpGet]
-public IActionResult Details(string table, int id)
+        public IActionResult Details(string table, int id)
 {
     switch(table.ToLower())
     {
@@ -232,10 +234,7 @@ public IActionResult Details(string table, int id)
                 return NotFound();
             }
             return View("HotelDetails", hotel);
-
-
-
-                case "travel":
+        case "travel":
             var travel = _db.Travels.Find(id);
             if (travel == null)
             {
@@ -259,21 +258,40 @@ public IActionResult Details(string table, int id)
             }
             return View("RestaurantDetails", restaurant);
             
-        case "toresport":
-            var toresport = _db.TouristSpots.Find(id);
-            if (toresport == null)
+        case "touristsport":
+            var touristsport = _db.TouristSpots.Find(id);
+            if (touristsport == null)
             {
                 return NotFound();
             }
-            return View("TouristSpotDetails", toresport);
+            return View("TouristSpotDetails", touristsport);
             
         default:
             return NotFound();
     }
 }
 
-        
+        public IActionResult Feedback(int? id)
+        {
+            var data = _db.Feedbacks.FirstOrDefault(x => x.FeedbackId == id);
 
+            // Concatenate SelectList items from different ViewBag items
+            var hotelList = new SelectList(_db.Hotels, "HotelId", "HotelName");
+            var travelList = new SelectList(_db.Travels, "TravelId", "TravelMode");
+            var touristSpotList = new SelectList(_db.TouristSpots, "SpotId", "SpotName");
+            var restaurantList = new SelectList(_db.Restaurants, "RestaurantId", "RestaurantName");
+            var resortList = new SelectList(_db.Resorts, "ResortId", "ResortName");
+
+            // Merge SelectList items into a single SelectList
+            ViewBag.SelectListItems = new List<SelectListItem>();
+            ViewBag.SelectListItems.AddRange(travelList);
+            ViewBag.SelectListItems.AddRange(hotelList);
+            ViewBag.SelectListItems.AddRange(touristSpotList);
+            ViewBag.SelectListItems.AddRange(restaurantList);
+            ViewBag.SelectListItems.AddRange(resortList);
+
+            return View(data);
+        }
 
 
         public IActionResult Contact()

@@ -67,7 +67,6 @@
     </div>
 </section>
 
-
 <script>
     $(document).ready(function () {
         // Fetch all records initially
@@ -83,31 +82,26 @@
             }
         });
 
-        // Attach a submit event handler to the search form
-        $('#searchForm').submit(function (event) {
-            event.preventDefault(); // Prevent form submission
-            var searchText = $('#searchInput').val(); // Get the search text
-            fetchTravel(searchText); 
-   
+        // Attach click event handler to the hotel cards
+        $('#TravelContainer').on('click', '.project-wrap.Travel', function () {
+            var table = $(this).data('table'); // Fetch table name from data-table attribute
+            var id = $(this).data('id'); // Fetch ID from data-id attribute
+            window.location.href = '/' + table + '/Details/' + id; // Navigate to correct details page
         });
     });
 
     // Function to fetch hotels via AJAX
     function fetchTravel(searchText = '') {
         $.ajax({
-            url: '/Home/FetchTravel',
+            url: '/Home/fetchTravel',
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {
-           
                 $('#TravelContainer').html(result); // Update the HTML container with the fetched hotel cards
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
             }
-                
         });
-
     }
 </script>
-

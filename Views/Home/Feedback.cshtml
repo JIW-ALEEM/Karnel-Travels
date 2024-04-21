@@ -1,0 +1,58 @@
+﻿@model Karnel_Travels.Models.Feedback;
+
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Feedback <i class="fa fa-chevron-right"></i></span></p>
+                <h1 class="mb-0 bread">Feedback</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section contact-section ftco-no-pt">
+    <div class="container text-center">
+        <div class="row block-9">
+            <div class="col-md-12 order-md-last d-flex">
+                <form class="bg-light p-5 contact-form">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" asp-for="FeedbackId">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" asp-for="FeedbackUserName" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" asp-for="FeedbackUserEmail" placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control m-2" asp-items="ViewBag.SelectListItems">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea cols="30" rows="7" class="form-control" asp-for="FeedbackMassage" placeholder="Message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-intro ftco-section ftco-no-pt">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <div class="img" style="background-image: url(../images/bg_2.jpg);">
+                    <div class="overlay"></div>
+                    <h2>We Are Karnel Travel Agency</h2>
+                    <p>We can manage your dream building A small river named Duden flows by their place</p>
+                    <p class="mb-0"><a href="#" class="btn btn-primary px-4 py-3">Ask For A Quote</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
