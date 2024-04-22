@@ -94,7 +94,7 @@
     // Function to fetch hotels via AJAX
     function TouristSpot(searchText = '') {
         $.ajax({
-            url: '/Home/TouristSpot',
+            url: '/Home/FetchTourist',
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {

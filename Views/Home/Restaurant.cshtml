@@ -93,7 +93,7 @@
     // Function to fetch hotels via AJAX
     function Restaurant(searchText = '') {
         $.ajax({
-            url: '/Home/Restaurant',
+            url: '/Home/FetchRestaurant',
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {

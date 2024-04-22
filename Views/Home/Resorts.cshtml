@@ -70,15 +70,15 @@
 <script>
     $(document).ready(function () {
         // Fetch all records initially
-        Resorts('');
+        fetchResorts('');
 
         // Attach keyup event handler to the search input
         $('#searchInput').keyup(function () {
             var searchText = $(this).val(); // Get the search text
             if (searchText.trim() === '') {
-                Resorts(); // Fetch all hotels if search text is empty
+                fetchResorts(); // Fetch all hotels if search text is empty
             } else {
-                Resorts(searchText); // Fetch hotels based on search text
+                fetchResorts(searchText); // Fetch hotels based on search text
             }
         });
 
@@ -91,9 +91,9 @@
     });
 
     // Function to fetch hotels via AJAX
-    function Resort(searchText = '') {
+    function fetchResorts(searchText = '') {
         $.ajax({
-            url: '/Home/Resorts',
+            url: '/Home/FetchResorts',
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {

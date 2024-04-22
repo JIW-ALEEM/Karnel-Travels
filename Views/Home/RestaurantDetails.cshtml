@@ -1,4 +1,4 @@
-﻿@model Karnel_Travels.Models.TouristSpot
+﻿@model Karnel_Travels.Models.Restaurant
 
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../../images/bg_1.jpg');">
     <div class="overlay"></div>
@@ -6,7 +6,7 @@
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
             <div class="col-md-9 ftco-animate pb-5 text-center">
                 <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Detail <i class="fa fa-chevron-right"></i></span></p>
-                <h1 class="mb-0 bread">Tourist Spot</h1>
+                <h1 class="mb-0 bread">Restaurant</h1>
             </div>
         </div>
     </div>
@@ -22,22 +22,23 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <img src="~/@Model.SpotImage" class="img-fluid" alt="Hotel Image" />
+                <img src="~/@Model.RestaurantImage" class="img-fluid" alt="Hotel Image" />
             </div>
             <div class="col-md-6">
-                <h2>@Model.SpotName</h2>
-                <p class="location"><span class="fa fa-map-marker"></span> @Model.SpotLocation</p>
-                <p class="price">$ @Model.SpotPrice/person</p>
-                <p class="price"><span class="flaticon-king-size"></span> @Model.SpotPrice</p>
+                <h2>@Model.RestaurantName</h2>
+                <p class="location"><span class="fa fa-map-marker"></span> @Model.RestaurantLocation</p>
+                <p class="price">Rs @Model.RestaurantPrice/person</p>
+                <p class="price"><span class="flaticon-king-size"></span> @Model.RestaurantPrice</p>
+                <p class="price"><span class="flaticon-king-size"></span> @Model.RestaurantMenu</p>
             </div>
-            <p class="description" style="margin:1.5%;">@Model.SpotDescription</p>
+            <p class="description" style="margin:1.5%;">@Model.RestaurantDescription</p>
         </div>
         <div class="row">
             <div class="col-md-4">
             </div>
             <div class="col-md-4">
                 <form method="post">
-                    <button type="submit" class="align-self-stretch form-control btn btn-primary p-0" asp-controller="Home" asp-action="Feedback" asp-route-id="@Model.SpotId">Book Now</button>
+                    <button type="submit" class="align-self-stretch form-control btn btn-primary p-0" asp-controller="Home" asp-action="Feedback" asp-route-id="@Model.RestaurantId">Book Now</button>
                 </form>
             </div>
             <div class="col-md-4">

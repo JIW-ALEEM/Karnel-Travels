@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Karnel_Travels.Controllers
 {
@@ -176,7 +177,7 @@ namespace Karnel_Travels.Controllers
         }
 
         [HttpGet]
-        public IActionResult FetchRestaurants(string searchText)
+        public IActionResult FetchRestaurant(string searchText)
         {
             // Fetch all hotels if search text is empty or null
             var Restaurants = string.IsNullOrEmpty(searchText) ? _db.Restaurants.ToList() : _db.Restaurants.Where(y => y.RestaurantName.Contains(searchText)).ToList();
@@ -277,7 +278,7 @@ namespace Karnel_Travels.Controllers
             return NotFound();
     }
 }
-
+        [Authorize(Roles = "User,Admin")]
         public IActionResult Feedback(int? id)
         {
             var data = _db.Feedbacks.FirstOrDefault(x => x.FeedbackId == id);
