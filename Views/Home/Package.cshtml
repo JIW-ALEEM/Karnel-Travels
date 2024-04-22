@@ -69,31 +69,35 @@
 
 <script>
     $(document).ready(function () {
-        fetchPackage('');
+        // Fetch all records initially
+        Package('');
 
+        // Attach keyup event handler to the search input
         $('#searchInput').keyup(function () {
-            var searchText = $(this).val();
+            var searchText = $(this).val(); // Get the search text
             if (searchText.trim() === '') {
-                fetchPackage();
+                Package(); // Fetch all hotels if search text is empty
             } else {
-                fetchPackage(searchText);
+                Package(searchText); // Fetch hotels based on search text
             }
         });
 
-        $('#packageContainer').on('click', '.project-wrap', function () {
-            var table = $(this).data('table');
-            var id = $(this).data('id');
-            window.location.href = '/' + table + '/Details/' + id;
+        // Attach click event handler to the hotel cards
+        $('#packageContainer').on('click', '.project-wrap.Package', function () {
+            var table = $(this).data('table'); // Fetch table name from data-table attribute
+            var id = $(this).data('id'); // Fetch ID from data-id attribute
+            window.location.href = '/' + table + '/Details/' + id; // Navigate to correct details page
         });
     });
 
-    function fetchPackage(searchText = '') {
+    // Function to fetch hotels via AJAX
+    function Package(searchText = '') {
         $.ajax({
             url: '/Home/FetchPackage',
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {
-                $('#packageContainer').html(result);
+                $('#packageContainer').html(result); // Update the HTML container with the fetched hotel cards
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
@@ -101,3 +105,4 @@
         });
     }
 </script>
+

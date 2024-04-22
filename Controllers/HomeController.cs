@@ -242,13 +242,13 @@ namespace Karnel_Travels.Controllers
             }
             return View("TravelDetails", travel);
             
-        case "resort":
-            var resort = _db.Resorts.Find(id);
-            if (resort == null)
+        case "resorts":
+            var resorts = _db.Resorts.Find(id);
+            if (resorts == null)
             {
                 return NotFound();
             }
-            return View("ResortDetails", resort);
+            return View("ResortDetails", resorts);
             
         case "restaurant":
             var restaurant = _db.Restaurants.Find(id);
@@ -258,15 +258,22 @@ namespace Karnel_Travels.Controllers
             }
             return View("RestaurantDetails", restaurant);
             
-        case "touristsport":
-            var touristsport = _db.TouristSpots.Find(id);
-            if (touristsport == null)
+        case "touristspot":
+            var touristspot = _db.TouristSpots.Find(id);
+            if (touristspot == null)
             {
                 return NotFound();
             }
-            return View("TouristSpotDetails", touristsport);
-            
-        default:
+            return View("TouristSpotDetails", touristspot);
+
+        case "Package2":
+            var Package = _db.Packages.Find(id);
+            if (Package == null)
+            {
+                return NotFound();
+            }
+            return View("PackageDetails", Package);
+             default:
             return NotFound();
     }
 }

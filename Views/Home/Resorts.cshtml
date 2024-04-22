@@ -70,43 +70,38 @@
 <script>
     $(document).ready(function () {
         // Fetch all records initially
-        fetch('');
+        Resorts('');
 
         // Attach keyup event handler to the search input
         $('#searchInput').keyup(function () {
             var searchText = $(this).val(); // Get the search text
             if (searchText.trim() === '') {
-                fetch(); // Fetch all hotels if search text is empty
+                Resorts(); // Fetch all hotels if search text is empty
             } else {
-                fetch(searchText); // Fetch hotels based on search text
+                Resorts(searchText); // Fetch hotels based on search text
             }
         });
 
-        // Attach a submit event handler to the search form
-        $('#searchForm').submit(function (event) {
-            event.preventDefault(); // Prevent form submission
-            var searchText = $('#searchInput').val(); // Get the search text
-            fetch(searchText);
-
+        // Attach click event handler to the hotel cards
+        $('#ResortsContainer').on('click', '.project-wrap.Resorts', function () {
+            var table = $(this).data('table'); // Fetch table name from data-table attribute
+            var id = $(this).data('id'); // Fetch ID from data-id attribute
+            window.location.href = '/' + table + '/Details/' + id; // Navigate to correct details page
         });
     });
 
     // Function to fetch hotels via AJAX
-    function fetch(searchText = '') {
+    function Resort(searchText = '') {
         $.ajax({
-            url: '/Home/FetchResorts',
+            url: '/Home/Resorts',
             type: 'GET',
             data: { searchText: searchText },
             success: function (result) {
-                console.log(result)
-
                 $('#ResortsContainer').html(result); // Update the HTML container with the fetched hotel cards
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
             }
-
         });
-
     }
 </script>

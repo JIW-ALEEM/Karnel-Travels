@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Karnel_Travels.Models.Restaurant>
 
-@foreach (var Restaurants in Model)
+@foreach (var Restaurant in Model)
 {
     <div class="col-md-4 ">
 
-        <div class="project-wrap Restaurants">
+        <div class="project-wrap Restaurant" data-table="Restaurant" data-id="@Restaurant.RestaurantId">
             <a href="#" class="img">
-                <img src="~/@Restaurants.RestaurantImage" class="img" alt="Restaurants Image" />
-                <span class="price">$@Restaurants.RestaurantPrice/person</span>
+                <img src="~/@Restaurant.RestaurantImage" class="img" alt="Restaurants Image" />
+                <span class="price">$@Restaurant.RestaurantPrice/person</span>
             </a>
             <div class="text p-4">
                 <p class="star mb-2">
@@ -18,8 +18,8 @@
                     <span class="fa fa-star"></span>
                 </p>
                 <span class="days">8 Days Tour</span>
-                <h3><a href="#">@Restaurants.RestaurantName</a></h3>
-                <p class="location"><span class="fa fa-map-marker"></span>@Restaurants.RestaurantLocation</p>
+                <h3><a href="#">@Restaurant.RestaurantName</a></h3>
+                <p class="location"><span class="fa fa-map-marker"></span>@Restaurant.RestaurantLocation</p>
                 <ul>
                     <li><span class="flaticon-shower"></span>2</li>
                     <li><span class="flaticon-king-size"></span>3</li>

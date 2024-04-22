@@ -20,14 +20,22 @@
                     <div class="form-group">
                         <input type="hidden" class="form-control" asp-for="FeedbackId">
                     </div>
+                    @using System.Security.Claims;
+                    @{
+                        string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                        string userName = User.FindFirst(ClaimTypes.Name).Value;
+                        string userEmail = User.FindFirst(ClaimTypes.Email).Value;
+                    }
+                 
                     <div class="form-group">
-                        <input type="text" class="form-control" asp-for="FeedbackUserName" placeholder="Your Name">
+                        <input type="hidden" class="form-control" value="@userId" asp-for="FeedbackUserId">
+                        <input type="text" class="form-control" asp-for="FeedbackUserName" value="@userName" placeholder="">
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" asp-for="FeedbackUserEmail" placeholder="Your Email">
+                        <input type="email" class="form-control" asp-for="FeedbackUserEmail" value="@userEmail" placeholder="Your Email">
                     </div>
                     <div class="form-group">
-                        <select class="form-control m-2" asp-items="ViewBag.SelectListItems" asp-for="" disabled>
+                        <select class="form-control m-2" asp-items="ViewBag.SelectListItems" disabled>
                         </select>
                     </div>
 
