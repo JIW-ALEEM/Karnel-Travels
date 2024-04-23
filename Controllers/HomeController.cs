@@ -281,79 +281,34 @@ namespace Karnel_Travels.Controllers
         [Authorize(Roles = "User,Admin")]
         public IActionResult Feedback(int? id)
         {
+            // Fetch the data based on the provided ID
             var data = _db.Feedbacks.FirstOrDefault(x => x.FeedbackId == id);
 
             // Initialize SelectList items
+            ViewBag.Travel = new SelectList(_db.Travels, "TravelId", "TravelMode");
+            ViewBag.TouristSpot = new SelectList(_db.TouristSpots, "SpotId", "SpotName");
+            ViewBag.Restaurant = new SelectList(_db.Restaurants, "RestaurantId", "RestaurantName");
+            ViewBag.Resort = new SelectList(_db.Resorts, "ResortId", "ResortName");
+            ViewBag.Hotel = new SelectList(_db.Hotels, "HotelId", "HotelName");
+
             var selectListItems = new List<SelectListItem>();
 
-            // Check if id is not null and matches any specific category
+            // Add items from ViewBag properties with IDs if their ID matches the provided ID
             if (id != null)
             {
-                // Check if id matches a Hotel
-                var hotel = _db.Hotels.FirstOrDefault(x => x.HotelId == id);
-                if (hotel != null)
-                {
-                    selectListItems.Add(new SelectListItem
-                    {
-                        Value = hotel.HotelId.ToString(),
-                        Text = hotel.HotelName,
-                        Selected = true // Mark as selected
-                    });
-                }
-
-                // Check if id matches a Travel mode
-                var travel = _db.Travels.FirstOrDefault(x => x.TravelId == id);
-                if (travel != null)
-                {
-                    selectListItems.Add(new SelectListItem
-                    {
-                        Value = travel.TravelId.ToString(),
-                        Text = travel.TravelMode,
-                        Selected = true // Mark as selected
-                    });
-                }
-
-                // Check if id matches a Tourist Spot
-                var touristSpot = _db.TouristSpots.FirstOrDefault(x => x.SpotId == id);
-                if (touristSpot != null)
-                {
-                    selectListItems.Add(new SelectListItem
-                    {
-                        Value = touristSpot.SpotId.ToString(),
-                        Text = touristSpot.SpotName,
-                        Selected = true // Mark as selected
-                    });
-                }
-
-                // Check if id matches a Restaurant
-                var restaurant = _db.Restaurants.FirstOrDefault(x => x.RestaurantId == id);
-                if (restaurant != null)
-                {
-                    selectListItems.Add(new SelectListItem
-                    {
-                        Value = restaurant.RestaurantId.ToString(),
-                        Text = restaurant.RestaurantName,
-                        Selected = true // Mark as selected
-                    });
-                }
-
-                // Check if id matches a Resort
-                var resort = _db.Resorts.FirstOrDefault(x => x.ResortId == id);
-                if (resort != null)
-                {
-                    selectListItems.Add(new SelectListItem
-                    {
-                        Value = resort.ResortId.ToString(),
-                        Text = resort.ResortName,
-                        Selected = true // Mark as selected
-                    });
-                }
+                selectListItems.AddRange(((IEnumerable<SelectListItem>)ViewBag.Travel).Where(item => Convert.ToInt32(item.Value) == id));
+                selectListItems.AddRange(((IEnumerable<SelectListItem>)ViewBag.TouristSpot).Where(item => Convert.ToInt32(item.Value) == id));
+                selectListItems.AddRange(((IEnumerable<SelectListItem>)ViewBag.Restaurant).Where(item => Convert.ToInt32(item.Value) == id));
+                selectListItems.AddRange(((IEnumerable<SelectListItem>)ViewBag.Resort).Where(item => Convert.ToInt32(item.Value) == id));
+                selectListItems.AddRange(((IEnumerable<SelectListItem>)ViewBag.Hotel).Where(item => Convert.ToInt32(item.Value) == id));
             }
 
-            // Return the view with data and filtered SelectList
-            ViewBag.SelectListItems = new SelectList(selectListItems, "Value", "Text");
+            // Assign the filtered list to ViewBag
+            ViewBag.SelectListItems = selectListItems;
+
             return View(data);
         }
+
 
 
         public IActionResult Feedback2(Feedback feed)

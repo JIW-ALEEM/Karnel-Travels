@@ -88,27 +88,12 @@ FOREIGN KEY (PackageResortId) REFERENCES Resort (ResortId)
 CREATE TABLE Feedback(
 FeedbackId INT PRIMARY KEY IDENTITY(1,1),
 FeedbackUserName VARCHAR(255) NOT NULL,
-FeedbackUserEmail VARCHAR(255) NOT NULL UNIQUE,
+FeedbackUserEmail VARCHAR(255) NOT NULL,
 FeedbackMassage VARCHAR (500) NOT NULL,
+SelectedId Int,
 
 FeedbackUserId INT
-FOREIGN KEY (FeedbackUserId) REFERENCES Users (UserId),
-
-FeedbackTouristSpotId INT
-FOREIGN KEY (FeedbackTouristSpotId) REFERENCES TouristSpot (SpotId),
-
-FeedbackTravelId INT
-FOREIGN KEY (FeedbackTravelId) REFERENCES Travel (TravelId),
-
-FeedbackHotelId INT
-FOREIGN KEY (FeedbackHotelId) REFERENCES Hotel (HotelId),
-
-FeedbackRestaurantId INT
-FOREIGN KEY (FeedbackRestaurantId) REFERENCES Restaurant (RestaurantId),
-
-FeedbackResortId INT
-FOREIGN KEY (FeedbackResortId) REFERENCES Resort (ResortId),
-
-FeedbackPackageId INT
-FOREIGN KEY (FeedbackPackageId) REFERENCES Package (PackageId)
+FOREIGN KEY (FeedbackUserId) REFERENCES Users (UserId)
 );
+
+drop table Feedback

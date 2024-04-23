@@ -9,8 +9,8 @@ public partial class Package
     public int PackageId { get; set; }
     [Required]
     public string PackageName { get; set; } = null!;
-
-    public string? PackageImage { get; set; }
+    [Required]
+    public string PackageImage { get; set; } = null!;
     [Required]
     public string PackagePerson { get; set; } = null!;
     [Required]
@@ -29,8 +29,6 @@ public partial class Package
     public int? PackageRestaurantId { get; set; }
 
     public int? PackageResortId { get; set; }
-
-    public virtual ICollection<Feedback> Feedbacks { get; } = new List<Feedback>();
 
     public virtual Hotel? PackageHotel { get; set; }
 
