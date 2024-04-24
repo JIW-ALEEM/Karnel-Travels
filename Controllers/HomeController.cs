@@ -104,9 +104,10 @@ namespace Karnel_Travels.Controllers
         // Index Action Method
         public IActionResult Index()
         {
-            var h = _db.Hotels.ToList();
-            var p = _db.Packages.ToList();
-            return View(p);
+            ViewBag.Resorts = _db.Resorts.ToList();
+            ViewBag.Packages = _db.Packages.ToList();
+
+            return View();
         }
 
         // About Action Method

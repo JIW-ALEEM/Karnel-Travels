@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Karnel_Travels.Models.Package>
+﻿
 
 <div class="hero-wrap js-fullheight" style="background-image: url('../images/bg_5.jpg');">
     <div class="overlay"></div>
@@ -239,57 +239,28 @@
     <div class="container container-2">
         <div class="row">
             <div class="col-md-12">
+                <div id="ResortsContainer">
                 <div class="carousel-destination owl-carousel ftco-animate">
-                    <div class="item">
+                    
+                    @foreach (var resort in ViewBag.Resorts)
+                    {
+                        
+                   
+                        <div class="item" data-table="Resorts" data-id="@resort.ResortId">
                         <div class="project-destination">
-                            <a href="#" class="img" style="background-image: url(../images/place-1.jpg);">
+                                
                                 <div class="text">
-                                    <h3>Philippines</h3>
-                                    <span>8 Tours</span>
+
+                                        <h3>@resort.ResortLocation</h3>
+                                    <img src="~/@resort.ResortImage" class="img">
+                                        <span>@resort.ResortPrice</span>
                                 </div>
-                            </a>
+                              
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="project-destination">
-                            <a href="#" class="img" style="background-image: url(../images/place-2.jpg);">
-                                <div class="text">
-                                    <h3>Canada</h3>
-                                    <span>2 Tours</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="project-destination">
-                            <a href="#" class="img" style="background-image: url(../images/place-3.jpg);">
-                                <div class="text">
-                                    <h3>Thailand</h3>
-                                    <span>5 Tours</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="project-destination">
-                            <a href="#" class="img" style="background-image: url(../images/place-4.jpg);">
-                                <div class="text">
-                                    <h3>Autralia</h3>
-                                    <span>5 Tours</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="project-destination">
-                            <a href="#" class="img" style="background-image: url(../images/place-5.jpg);">
-                                <div class="text">
-                                    <h3>Greece</h3>
-                                    <span>7 Tours</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    }
+                   
+                </div>
                 </div>
             </div>
         </div>
@@ -305,7 +276,7 @@
         </div>
        
             <div class="row" id="packageContainer">
-            @foreach (var Package in Model)
+            @foreach (var Package in ViewBag.Packages)
             {
                 <div class="col-md-4 ">
 
@@ -596,6 +567,12 @@
     $(document).ready(function () {
 
         $('#packageContainer').on('click', '.project-wrap.Package', function () {
+            var table = $(this).data('table'); // Fetch table name from data-table attribute
+            var id = $(this).data('id'); // Fetch ID from data-id attribute
+            window.location.href = '/' + table + '/Details/' + id; // Navigate to correct details page
+        });
+        // Attach click event handler to the hotel cards
+        $('#ResortsContainer').on('click', '.item', function () {
             var table = $(this).data('table'); // Fetch table name from data-table attribute
             var id = $(this).data('id'); // Fetch ID from data-id attribute
             window.location.href = '/' + table + '/Details/' + id; // Navigate to correct details page
