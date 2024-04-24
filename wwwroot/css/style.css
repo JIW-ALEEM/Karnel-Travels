@@ -134,14 +134,6 @@
         }
 }
 
-
-
-
-
-.dropdown {
-top :1rem;
-
-}
 *,
 *::before,
 *::after {
@@ -1888,8 +1880,6 @@ h1, h2, h3, h4, h5,
       font-size: 16px;
       letter-spacing: .1em; }
     .ftco-navbar-light.scrolled .nav-link {
-      padding-top: 1rem !important;
-      padding-bottom: 1rem !important;
       color: #000000 !important; }
       .ftco-navbar-light.scrolled .nav-link.active {
         color: #f15d30 !important; }

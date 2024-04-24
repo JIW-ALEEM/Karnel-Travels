@@ -106,6 +106,7 @@ namespace Karnel_Travels.Controllers
         {
             ViewBag.Resorts = _db.Resorts.ToList();
             ViewBag.Packages = _db.Packages.ToList();
+            ViewBag.Travels = _db.Travels.ToList();
 
             return View();
         }
