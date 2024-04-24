@@ -271,14 +271,22 @@ namespace Karnel_Travels.Controllers
             }
             return View("TouristSpotDetails", touristspot);
 
-        case "package":
-            var package = _db.Packages.Find(id);
-            if (package == null)
-            {
-                return NotFound();
-            }
-            return View("PackageDetails", package);
-        default:
+                case "package":
+                    var package = _db.Packages
+                                    .Include(p => p.PackageHotel)
+                                    .Include(p => p.PackageTravel)
+                                    .Include(p => p.PackageTouristSpot)
+                                    .Include(p => p.PackageRestaurant)
+                                    .Include(p => p.PackageResort)
+                                    .FirstOrDefault(p => p.PackageId == id);
+
+                    if (package == null)
+                    {
+                        return NotFound();
+                    }
+                    return View("PackageDetails", package);
+
+                default:
         return NotFound();
     }
 }
@@ -322,12 +330,12 @@ namespace Karnel_Travels.Controllers
             _db.Add(feed);
             _db.SaveChanges();
 
-			SmtpClient client = new SmtpClient("hamzasiddiqui1317@gmail.com", 587);
+			SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
 			client.EnableSsl = true;
 			client.UseDefaultCredentials = false;
-			client.Credentials = new NetworkCredential("hamzasiddiqui1317@gmail.com", "0566 607 519"); //From 
+			client.Credentials = new NetworkCredential("hamzasiddiqui1317@gmail.com", "0566607519"); //From 
 
-			MailMessage Msg = new MailMessage("hamzasiddiqui1317@gmail.com" , feed.FeedbackMassage); // To
+			MailMessage Msg = new MailMessage("hamzasiddiqui1317@gmail.com" , feed.FeedbackUserEmail); // To
 
 			Msg.Subject = "Your Booking Request have Been Sumited";
 			Msg.Body = feed.FeedbackUserName + "Thankx for Booking us!" + "\n" + feed.FeedbackMassage;

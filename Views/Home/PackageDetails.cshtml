@@ -28,7 +28,11 @@
                 <h2>@Model.PackageName</h2>
                 <p class="price">$ @Model.PackagePrice/person</p>
                 <ul>
-                   <li></li>
+                    <li>@Model.PackageHotel.HotelName</li>
+                    <li>@Model.PackageTouristSpot.SpotName</li>
+                    <li>@Model.PackageRestaurant.RestaurantName</li>
+                    <li>@Model.PackageResort.ResortName</li>
+                    <li>@Model.PackageTravel.TravelMode</li>
 
                 </ul>
             </div>

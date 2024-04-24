@@ -19,6 +19,20 @@ namespace Karnel_Travels.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AdminIndex()
         {
+            int totalCount = db.Hotels.Count();
+            int totalCount1 = db.Travels.Count();
+            int totalCount2 = db.Restaurants.Count();
+            int totalCount3 = db.Resorts.Count();
+            int totalCount4 = db.TouristSpots.Count();
+            int totalCount5 = db.Packages.Count();
+            int totalCount6 = db.Users.Count();
+            ViewBag.TotalCount = totalCount;
+            ViewBag.TotalCount1 = totalCount1;
+            ViewBag.TotalCount2 = totalCount2;
+            ViewBag.TotalCount3 = totalCount3;
+            ViewBag.TotalCount4 = totalCount4;
+            ViewBag.TotalCount5 = totalCount5;
+            ViewBag.TotalCount5 = totalCount6;
             return View();
         }
 
