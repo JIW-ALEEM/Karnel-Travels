@@ -772,5 +772,10 @@ namespace Karnel_Travels.Controllers
             TempData["UpdateMessage"] = file != null ? "Record Updated Successfully" : "Record Updated Successfully with Previous Image";
             return RedirectToAction(nameof(FetchPackage));
         }
+        public IActionResult Feedback()
+        {
+
+            return View(db.Feedbacks.ToList());
+        }
     }
 }
