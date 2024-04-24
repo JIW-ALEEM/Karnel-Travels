@@ -11,8 +11,8 @@ public partial class Hotel
     public string HotelName { get; set; } = null!;
     [Required]
     public string HotelRooms { get; set; } = null!;
-    [Required]
-    public string HotelImage { get; set; } = null!;
+
+	public string? HotelImage { get; set; } 
     [Required]
     public long HotelPrice { get; set; }
     [Required]

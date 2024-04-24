@@ -9,8 +9,8 @@ public partial class TouristSpot
     public int SpotId { get; set; }
     [Required]
     public string SpotName { get; set; } = null!;
-    [Required]
-    public string SpotImage { get; set; } = null!;
+
+	public string? SpotImage { get; set; }
     [Required]
     public long SpotPrice { get; set; }
     [Required]

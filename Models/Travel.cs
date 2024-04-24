@@ -9,8 +9,7 @@ public partial class Travel
     public int TravelId { get; set; }
     [Required]
     public string TravelMode { get; set; } = null!;
-    [Required]
-    public string TravelImage { get; set; } = null!;
+    public string? TravelImage { get; set; }
     [Required]
     public long TravelPrice { get; set; }
     [Required]

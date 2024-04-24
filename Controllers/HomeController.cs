@@ -9,6 +9,9 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using System.Drawing;
+using System.Net.Mail;
+using System.Net;
 
 namespace Karnel_Travels.Controllers
 {
@@ -315,9 +318,21 @@ namespace Karnel_Travels.Controllers
         {
                     _db.Add(feed);
                     _db.SaveChanges();
-                    TempData["Message"] = "User Registered Successfully..";
-                    return RedirectToAction(nameof(Index));
-        }
+
+			SmtpClient client = new SmtpClient("hamzasiddiqui1317@gmail.com", 0566);
+			client.EnableSsl = true;
+			client.UseDefaultCredentials = false;
+			client.Credentials = new NetworkCredential("hamzasiddiqui1317@gmail.com", "0566 607 519"); //From 
+
+			MailMessage Msg = new MailMessage("hamzasiddiqui1317@gmail.com" , feed.FeedbackMassage); // To
+
+			Msg.Subject = "Your Booking Request have Been Sumited";
+			Msg.Body = feed.FeedbackUserName + "Thankx for Booking us!" + "\n" + feed.FeedbackMassage;
+			client.Send(Msg);
+
+			TempData["ContMessage"] = "Successfully Submit";
+			return RedirectToAction(nameof(Index));
+		}
 
         public IActionResult Contact()
         {

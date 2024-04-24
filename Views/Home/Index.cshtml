@@ -570,3 +570,12 @@
         </div>
     </div>
 </section>
+@{
+    string ContMessage = TempData["ContMessage"] as string;
+}
+@if (!string.IsNullOrEmpty(ContMessage))
+{
+    <script>
+        alert("@ContMessage");
+    </script>
+}
