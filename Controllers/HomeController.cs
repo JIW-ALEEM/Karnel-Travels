@@ -104,8 +104,9 @@ namespace Karnel_Travels.Controllers
         // Index Action Method
         public IActionResult Index()
         {
-            //var p = _db.Packages.ToList();
-            return View();
+            var h = _db.Hotels.ToList();
+            var p = _db.Packages.ToList();
+            return View(p);
         }
 
         // About Action Method
@@ -270,15 +271,15 @@ namespace Karnel_Travels.Controllers
             }
             return View("TouristSpotDetails", touristspot);
 
-        case "Package2":
-            var Package = _db.Packages.Find(id);
-            if (Package == null)
+        case "package":
+            var package = _db.Packages.Find(id);
+            if (package == null)
             {
                 return NotFound();
             }
-            return View("PackageDetails", Package);
-             default:
-            return NotFound();
+            return View("PackageDetails", package);
+        default:
+        return NotFound();
     }
 }
         [Authorize(Roles = "User,Admin")]
@@ -293,8 +294,9 @@ namespace Karnel_Travels.Controllers
             ViewBag.Restaurant = new SelectList(_db.Restaurants, "RestaurantId", "RestaurantName");
             ViewBag.Resort = new SelectList(_db.Resorts, "ResortId", "ResortName");
             ViewBag.Hotel = new SelectList(_db.Hotels, "HotelId", "HotelName");
+            ViewBag.Package = new SelectList(_db.Packages, "PackageId", "PackageName");
 
-            var selectListItems = new List<SelectListItem>();
+			var selectListItems = new List<SelectListItem>();
 
             // Add items from ViewBag properties with IDs if their ID matches the provided ID
             if (id != null)
@@ -304,6 +306,7 @@ namespace Karnel_Travels.Controllers
                 selectListItems.AddRange(((IEnumerable<SelectListItem>)ViewBag.Restaurant).Where(item => Convert.ToInt32(item.Value) == id));
                 selectListItems.AddRange(((IEnumerable<SelectListItem>)ViewBag.Resort).Where(item => Convert.ToInt32(item.Value) == id));
                 selectListItems.AddRange(((IEnumerable<SelectListItem>)ViewBag.Hotel).Where(item => Convert.ToInt32(item.Value) == id));
+				selectListItems.AddRange(((IEnumerable<SelectListItem>)ViewBag.Package).Where(item => Convert.ToInt32(item.Value) == id));
             }
 
             // Assign the filtered list to ViewBag
@@ -316,10 +319,10 @@ namespace Karnel_Travels.Controllers
 
         public IActionResult Feedback2(Feedback feed)
         {
-                    _db.Add(feed);
-                    _db.SaveChanges();
+            _db.Add(feed);
+            _db.SaveChanges();
 
-			SmtpClient client = new SmtpClient("hamzasiddiqui1317@gmail.com", 0566);
+			SmtpClient client = new SmtpClient("hamzasiddiqui1317@gmail.com", 587);
 			client.EnableSsl = true;
 			client.UseDefaultCredentials = false;
 			client.Credentials = new NetworkCredential("hamzasiddiqui1317@gmail.com", "0566 607 519"); //From 

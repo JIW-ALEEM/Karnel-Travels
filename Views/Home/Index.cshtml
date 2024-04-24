@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Karnel_Travels.Models.Package>
+
 <div class="hero-wrap js-fullheight" style="background-image: url('../images/bg_5.jpg');">
     <div class="overlay"></div>
     <div class="container">
@@ -302,28 +303,40 @@
                 <h2 class="mb-4">Tour Destination</h2>
             </div>
         </div>
-        <div class="row">
-   @*          @foreach (var p in Model)
-{
-            <div class="col-md-4 ftco-animate">
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url(..~/@p.PackageImage);">
-                        <span class="price">@p.PackagePrice/person</span>
-                    </a>
-                    <div class="text p-4">
-                        <span class="days">@p.PackageTour</span>
-                        <h3><a href="#">@p.PackageName</a></h3>
-                        <p class="location"><span class="fa fa-map-marker"></span> @p.PackageDescription</p>
-                        <ul>
-                            <li><span class="flaticon-shower"></span>2</li>
-                            <li><span class="flaticon-king-size"></span>3</li>
-                            <li><span class="flaticon-mountains"></span>Near Mountain</li>
-                        </ul>
+       
+            <div class="row" id="packageContainer">
+            @foreach (var Package in Model)
+            {
+                <div class="col-md-4 ">
+
+                    <div class="project-wrap Package" data-table="Package" data-id="@Package.PackageId">
+                        <a class="img">
+                            <img src="~/@Package.PackageImage" class="img" alt="Tourist Image" />
+                            <span class="price">Rs @Package.PackagePrice/person</span>
+                        </a>
+                        <div class="text p-4">
+                            <p class="star mb-2">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </p>
+                            <span class="days">8 Days Tour</span>
+                            <h3><a href="#">@Package.PackageName</a></h3>
+                            <p class="location"><span class="fa fa-map-marker"></span>@Package.PackageDescription</p>
+                            <ul>
+                                <li><span class="flaticon-shower"></span>2</li>
+                                <li><span class="flaticon-king-size"></span>3</li>
+                                <li><span class="flaticon-mountains"></span></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-       } *@
-        </div>
+
+            }
+           </div>
+      
     </div>
 </section>
 <section class="ftco-section ftco-about img" style="background-image: url(../images/bg_4.jpg);">
@@ -579,3 +592,15 @@
         alert("@ContMessage");
     </script>
 }
+<script>
+    $(document).ready(function () {
+
+        $('#packageContainer').on('click', '.project-wrap.Package', function () {
+            var table = $(this).data('table'); // Fetch table name from data-table attribute
+            var id = $(this).data('id'); // Fetch ID from data-id attribute
+            window.location.href = '/' + table + '/Details/' + id; // Navigate to correct details page
+        });
+
+    });
+
+</script>
