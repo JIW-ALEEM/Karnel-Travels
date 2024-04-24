@@ -26,6 +26,7 @@ namespace Karnel_Travels.Controllers
             int totalCount4 = db.TouristSpots.Count();
             int totalCount5 = db.Packages.Count();
             int totalCount6 = db.Users.Count();
+            int totalCount7 = db.Feedbacks.Count();
             ViewBag.TotalCount = totalCount;
             ViewBag.TotalCount1 = totalCount1;
             ViewBag.TotalCount2 = totalCount2;
@@ -33,6 +34,7 @@ namespace Karnel_Travels.Controllers
             ViewBag.TotalCount4 = totalCount4;
             ViewBag.TotalCount5 = totalCount5;
             ViewBag.TotalCount6 = totalCount6;
+            ViewBag.TotalCount7 = totalCount7;
             return View();
         }
 

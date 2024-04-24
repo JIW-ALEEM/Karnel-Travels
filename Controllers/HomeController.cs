@@ -331,18 +331,6 @@ namespace Karnel_Travels.Controllers
         {
             _db.Add(feed);
             _db.SaveChanges();
-
-			SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
-			client.EnableSsl = true;
-			client.UseDefaultCredentials = false;
-			client.Credentials = new NetworkCredential("hamzasiddiqui1317@gmail.com", "0566607519"); //From 
-
-			MailMessage Msg = new MailMessage("hamzasiddiqui1317@gmail.com" , feed.FeedbackUserEmail); // To
-
-			Msg.Subject = "Your Booking Request have Been Sumited";
-			Msg.Body = feed.FeedbackUserName + "Thankx for Booking us!" + "\n" + feed.FeedbackMassage;
-			client.Send(Msg);
-
 			TempData["ContMessage"] = "Successfully Submit";
 			return RedirectToAction(nameof(Index));
 		}
