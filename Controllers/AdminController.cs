@@ -32,7 +32,7 @@ namespace Karnel_Travels.Controllers
             ViewBag.TotalCount3 = totalCount3;
             ViewBag.TotalCount4 = totalCount4;
             ViewBag.TotalCount5 = totalCount5;
-            ViewBag.TotalCount5 = totalCount6;
+            ViewBag.TotalCount6 = totalCount6;
             return View();
         }
 
