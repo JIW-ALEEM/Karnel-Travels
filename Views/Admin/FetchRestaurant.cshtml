@@ -52,7 +52,7 @@
                                     <th scope="col">Price</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
-                                    <th scope="col"></th>
+                                 
                                     
                                 </tr>
                             </thead>
@@ -62,14 +62,26 @@
                                     <tr>
                                         <td><img src="~/@item.RestaurantImage" class="d-flex m-auto" width="50" height="50" alt="..."></td>
                                         <td>@item.RestaurantName</td>
-                                        <td>@item.RestaurantMenu</td>
                                         <td>
-                                            @if (item.RestaurantDescription.Length > 10)
+                                            @if (item.RestaurantMenu.Length > 5)
                                             {
-                                                <span id="description_@item.RestaurantId">@TruncateDescription(item.RestaurantDescription, 10)</span>
+                                                <span id="description_@item.RestaurantId">@TruncateDescription(item.RestaurantMenu, 5)</span>
+                                                <span id="full_description_@item.RestaurantId" style="display:none">@item.RestaurantMenu</span>
+                                                <button class="btn btn-link read-more-btn" style="text-decoration:none;color:gray;" data-description-id="@item.RestaurantId">Read More</button>
+                                                <button class="btn btn-link read-less-btn" style="display:none;text-decoration:none;color:gray;" data-description-id="@item.RestaurantId">Read Less</button>
+                                            }
+                                            else
+                                            {
+                                                @item.RestaurantMenu
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.RestaurantDescription.Length > 5)
+                                            {
+                                                <span id="description_@item.RestaurantId">@TruncateDescription(item.RestaurantDescription, 5)</span>
                                                 <span id="full_description_@item.RestaurantId" style="display:none">@item.RestaurantDescription</span>
-                                                <button class="btn btn-link read-more-btn" style="text-decoration:none" data-description-id="@item.RestaurantId">Read More</button>
-                                                <button class="btn btn-link read-less-btn" style="display:none;text-decoration:none" data-description-id="@item.RestaurantId">Read Less</button>
+                                                <button class="btn btn-link read-more-btn" style="text-decoration:none;color:gray;" data-description-id="@item.RestaurantId">Read More</button>
+                                                <button class="btn btn-link read-less-btn" style="display:none;text-decoration:none;color:gray;" data-description-id="@item.RestaurantId">Read Less</button>
                                             }
                                             else
                                             {
@@ -80,6 +92,7 @@
                                         <td>@item.RestaurantPrice</td>
                                         <td><a class="status_btn" asp-action="UpdateRestaurant" asp-controller="Admin" asp-route-id="@item.RestaurantId">Update</a></td>
                                         <td><a class="status_btnn" asp-action="DeleteRestaurant" asp-controller="Admin" asp-route-id="@item.RestaurantId">Delete</a></td>
+                                  
                                     </tr>
                                 }
                             </tbody>

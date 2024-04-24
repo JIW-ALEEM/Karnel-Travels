@@ -60,9 +60,9 @@
                                         <td><img src="~/@item.SpotImage" class="d-flex m-auto" width="50" height="50" alt="..."></td>
                                         <td>@item.SpotName</td>
                                         <td>
-                                            @if (item.SpotDescription.Length > 10)
+                                            @if (item.SpotDescription.Length > 5)
                                             {
-                                                <span id="description_@item.SpotId">@TruncateDescription(item.SpotDescription, 10)</span>
+                                                <span id="description_@item.SpotId">@TruncateDescription(item.SpotDescription, 5)</span>
                                                 <span id="full_description_@item.SpotId" style="display:none">@item.SpotDescription</span>
                                                 <button class="btn btn-link read-more-btn" style="text-decoration:none" data-description-id ="@item.SpotId">Read More</button>
                                                 <button class="btn btn-link read-less-btn" style="display:none;text-decoration:none" data-description-id="@item.SpotId">Read Less</button>
